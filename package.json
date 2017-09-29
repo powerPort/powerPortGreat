@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/powerPort/powerPort/issues"
   },
-  "homepage": "https://github.com/powerPort/powerPort#readme"
+  "homepage": "https://github.com/powerPort/powerPort#readme",
+  "dependencies": {
+    "express": "^4.16.0"
+  }
 }
