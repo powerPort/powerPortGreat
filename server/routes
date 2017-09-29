@@ -1,10 +1,15 @@
-var app = require('../index.js');
+//this will have to deal with the database 
+//var db = require('../database/index.js');
 
-//use body parser to read body content in the requests
-app.use(require('body-parser'));
+exports.getMainPage = function(req, res, callback) {
+  //get something to get the data => the main page ;
+  var data = 'the main page';
+  //send it to the callback ;
+  callback(data);
+}
 
-app.get('/' , (req, res) => {
- //do some thing
- res.send('the routes are on');
-});
 
+exports.anotherFunction = function (req, res, CB) {
+  //do somethin 
+  CB('some data to be sent to the response');
+}
