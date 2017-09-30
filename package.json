@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/powerPort/powerPort#readme",
   "dependencies": {
-    "express": "^4.16.0"
+    "express": "^4.16.0",
+    "mongoose": "^4.11.13"
   }
 }
