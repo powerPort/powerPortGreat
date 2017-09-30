@@ -26,5 +26,5 @@ exports.findCities = function (req, res, CB) {
 
 
   //temp :
-  CB([{name : 'jrdan'},{name : 'jrdan'},{name : 'jrdan'}])
+  CB([{name : 'jrdan'},{name : 'jrdan'},{name : 'jrdan'}]);
 }
