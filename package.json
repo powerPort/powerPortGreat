@@ -1,0 +1,23 @@
+{
+  "name": "powerPort",
+  "version": "1.0.0",
+  "description": "@powerPort",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/powerPort/powerPort.git"
+  },
+  "author": "\"As-har Dweedar , Hiba Akrosh , Alaa , Doha \"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/powerPort/powerPort/issues"
+  },
+  "homepage": "https://github.com/powerPort/powerPort#readme",
+  "dependencies": {
+    "express": "^4.16.0"
+  }
+}
