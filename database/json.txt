@@ -59,39 +59,35 @@ Ottawa 76.93 63.07
 Panama-City 51.17 68.33
 Paris 46.44 48.01
 Phnom-Penh 45.68 78.42
-Port-Moresby 16.32
-Port-of-Spain 23.44
-Prague 71.12
-Quito 44.92
-Reykjavik 76.85
-Riga 61.58
-Riyadh 75.85
-Rome 44.14
-San-Salvador 26.54
-Sana'Santiago 50.49
-Santo-Domingo 31.44
-Sarajevo 53.57
-Seoul 71.66
-Singapore 83.1
-Skopje 54.12
-Sofia 54.91
-Stockholm 51.49
-Taipei 82.62
-Tallinn 78.63
-Tbilisi 79.63 
-Tegucigalpa
-Tehran 45.53
-Tirana 57.51
-Tokyo 80.62
+Prague 71.12 79.30
+Quito 44.92 80.12
+Reykjavik 76.85 15.41
+Riga 61.58 77.67
+Riyadh 75.85 79.69
+Rome 44.14 57.12
+San-Salvador 26.54 79.04
+Santo-Domingo 31.44 76.66
+Sarajevo 53.57 86.48
+Seoul 71.66 51.28
+Singapore 83.1 49.54
+Skopje 54.12 90.13
+Sofia 54.91 86.59
+Stockholm 51.49 47.03
+Taipei 82.62 62.87
+Tallinn 78.63 74.03
+Tbilisi 79.63 93.50 
+Tehran 45.53 85.86
+Tirana 57.51 89.08
+Tokyo 80.62 41.83
 Tripoli 40.31
-Tunis 62.94
-Ulaanbaatar 35.44
-Vienna 78.91
-Vilnius 65.96
-Warsaw 73.7
-Washington 41.94
-Wellington 68.92
-Windhoek 26.54
+Tunis 62.94 96.05
+Ulaanbaatar 35.44 84.03
+Vienna 78.91 59.21
+Vilnius 65.96 77.39
+Warsaw 73.7 82.94
+Washington 41.94 43.23
+Wellington 68.92 52.81
+Windhoek 26.54 
 Yerevan 69.85
 Zagreb 72.36
 
