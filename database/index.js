@@ -1,13 +1,13 @@
 //define mongoose
 var mongoose = require ('mongoose');
 //small shortcut
-var schema = mongoose.schema ;
+var schema = mongoose.Schema ;
 mongoose.Promise = require('bluebird');
 
 
 //add a table here 
 var someSchema = schema ({
-    id : STRING
+    id : String
 });
 exports.tableName = mongoose.model('tableName', someSchema);
 
@@ -16,7 +16,7 @@ exports.tableName = mongoose.model('tableName', someSchema);
 
 //add another table here 
 var someOtherSchema = schema ({
-    id : STRING
+    id : String
 });
 exports.OthertableName = mongoose.model('OthertableName', someOtherSchema);
 
