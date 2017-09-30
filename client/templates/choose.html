@@ -26,5 +26,11 @@
        </select>
  		<br><br>
        <button ng-click="$ctrl.find()"> find submit </button>
+       </ul>
+       <div ng-repeat="city in $ctrl.cities">
+         
+         <li>{{city.name}}</li>
+       </div>
+       <ul>
 
    	</div>
