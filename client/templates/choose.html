@@ -1,0 +1,30 @@
+<div>
+   	<h3>cost :</h3>
+   	
+   		<select id="cost">
+       <option
+       ng-repeat="num in $ctrl.generatore"
+       > {{num}}</option>
+       </select>
+
+       <h3>Security :</h3>
+   	
+   		<select id="security">
+       <option
+       ng-repeat="num in $ctrl.generatore"
+       > {{num}}</option>
+       </select>
+
+
+
+       <h3>Wheater :</h3>
+   	
+   		<select id="wheater">
+       <option
+       ng-repeat="num in $ctrl.generatore"
+       > {{num}}</option>
+       </select>
+ 		<br><br>
+       <button ng-click="$ctrl.find()"> find submit </button>
+
+   	</div>
