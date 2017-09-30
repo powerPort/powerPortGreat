@@ -1,102 +1,95 @@
-Abu-Dhabi 86.46
-Addis-Ababa 55.36
-Algiers	48.28	
-Amman 56.18
-Amsterdam 63.89
-Ankara 56.38
-Athens 50.01
-Baghdad 42
-Baku 73.31
-Bangkok 51.61
-Beijing 61.79
-Beirut 50.61
-Belgrade 61.7
-Berlin 57.88
-Bern 81.53
-Bogota 37.32
-Brasilia 34.65
-Bratislava 68.84
-Brussels 47.04
-Bucharest 71.82
-Budapest 61.11
-Buenos-Aires 36.97
-Cairo 42.53
-Canberra 77.24
-Caracas 17.64
-Copenhagen 78.73
-Damascus 32.96
-Dhaka 30.37
-Dili 38.67
-Doha 84.13
-Dublin 48.02
-Hanoi 50.14
-Harare 48.02
-Helsinki 75.36
-Hong Kong 79.93
-Islamabad 60.87
-Jakarta 46.76
-Kathmandu 65.64
-Kiev 50.79
-Kingston 31.58
-Kuala-Lumpur 31.31
-Kuwait 67.53
-Lima 28.55
-Lisbon 67.41
-Ljubljana 75.29
-London 52.93
-Luxembourg 73.84
-Madrid 69.33
-Male 34.2
-Manama 73.06
-Manila 39.69
-Mexico-City 34.45
-Minsk 76.37
-Montevideo 44.04
-Moscow 54.79
-Muscat 70.39
-Nairobi 35.95
-Nicosia 68
-Oslo 53.52
-Ottawa 76.93
-Panama-City 51.17
-Paris 46.44
-Phnom-Penh 45.68
-Port-Moresby 16.32
-Port-of-Spain 23.44
-Prague 71.12
-Quito 44.92
-Reykjavik 76.85
-Riga 61.58
-Riyadh 75.85
-Rome 44.14
-San-Salvador 26.54
-Sana'Santiago 50.49
-Santo-Domingo 31.44
-Sarajevo 53.57
-Seoul 71.66
-Singapore 83.1
-Skopje 54.12
-Sofia 54.91
-Stockholm 51.49
-Taipei 82.62
-Tallinn 78.63
-Tbilisi 79.63 
-Tegucigalpa
-Tehran 45.53
-Tirana 57.51
-Tokyo 80.62
-Tripoli 40.31
-Tunis 62.94
-Ulaanbaatar 35.44
-Vienna 78.91
-Vilnius 65.96
-Warsaw 73.7
-Washington 41.94
-Wellington 68.92
-Windhoek 26.54
-Yerevan 69.85
-Zagreb 72.36
-
+Abu-Dhabi 86.46 65.8
+Addis-Ababa 55.36 78.65
+Algiers	48.28 87.8	
+Amman 56.18 70.37
+Amsterdam 63.89 49.40
+Ankara 56.38 85.45
+Athens 50.01 86.98
+Baghdad 42 78.87
+Baku 73.31 93.78
+Bangkok 51.61 76.68
+Beijing 61.79 82.02
+Beirut 50.61 66.29
+Belgrade 61.7 86.78
+Berlin 57.88 62.14
+Bern 81.53 11.59
+Bogota 37.32 89.45
+Brasilia 34.65 75.08
+Bratislava 68.84 78.12
+Brussels 47.04 53.85 
+Bucharest 71.82 86.17
+Budapest 61.11 81.08
+Buenos-Aires 36.97 72.94
+Cairo 42.53 99.04 
+Canberra 77.24 53.75
+Caracas 17.64 90.6
+Copenhagen 78.73 42.28
+Damascus 32.96 96.23
+Dhaka 30.37 90.75
+Doha 84.13 64.10
+Dublin 48.02 49.20
+Hanoi 50.14 84.18
+Harare 48.02 76.38
+Helsinki 75.36 50.21
+Hong Kong 79.93 56.61
+Islamabad 60.87 92.75
+Jakarta 46.76 80.44
+Kathmandu 65.64 92.08
+Kiev 50.79 94.97
+Kingston 31.58 64.6
+Kuala-Lumpur 31.31 82.66
+Kuwait 67.53 67.10
+Lima 28.55 83.03 
+Lisbon 67.41 75.24
+Ljubljana 75.29 68.49
+London 52.93 62.11
+Luxembourg 73.84 50.05
+Madrid 69.33 65.94
+Manama 73.06 71.45
+Manila 39.69 85.92
+Mexico-City 34.45 87.38
+Minsk 76.37 91.11
+Montevideo 44.04 61.67
+Moscow 54.79 79.40
+Muscat 70.39 75.68
+Nairobi 35.95 84.68 
+Nicosia 68 67.64
+Oslo 53.52 28.17
+Ottawa 76.93 63.07
+Panama-City 51.17 68.33
+Paris 46.44 48.01
+Phnom-Penh 45.68 78.42
+Prague 71.12 79.30
+Quito 44.92 80.12
+Reykjavik 76.85 15.41
+Riga 61.58 77.67
+Riyadh 75.85 79.69
+Rome 44.14 57.12
+San-Salvador 26.54 79.04
+Santo-Domingo 31.44 76.66
+Sarajevo 53.57 86.48
+Seoul 71.66 51.28
+Singapore 83.1 49.54
+Skopje 54.12 90.13
+Sofia 54.91 86.59
+Stockholm 51.49 47.03
+Taipei 82.62 62.87
+Tallinn 78.63 74.03
+Tbilisi 79.63 93.50 
+Tehran 45.53 85.86
+Tirana 57.51 89.08
+Tokyo 80.62 41.83
+Tripoli 40.31 =============
+Tunis 62.94 96.05
+Ulaanbaatar 35.44 84.03
+Vienna 78.91 59.21
+Vilnius 65.96 77.39
+Warsaw 73.7 82.94
+Washington 41.94 43.23
+Wellington 68.92 52.81
+Windhoek 26.54 =================
+Yerevan 69.85 91.14
+Zagreb 72.36 75.32
 
 
 
