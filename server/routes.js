@@ -1,15 +1,23 @@
 //this will have to deal with the database 
-//var db = require('../database/index.js');
+var cities = require('../database/index.js');
+
 
 exports.getMainPage = function(req, res, callback) {
-  //get something to get the data => the main page ;
-  var data = 'the main page';
+  //do something to get the data => the main page ;
+  var mainPage = fs.readFileSync('../client/index.html').toString();
+
+  //test data :
+  //var data = 'the main page';
+
   //send it to the callback ;
   callback(data);
 }
 
 
-exports.anotherFunction = function (req, res, CB) {
-  //do somethin 
+exports.findCities = function (req, res, CB) {
+	var criteria = req.body;
+	console.log('post req : findCities , criteria : ', criteria);
+  //do something to get results page ..
+
   CB('some data to be sent to the response');
 }
