@@ -1,29 +1,29 @@
-Abu-Dhabi 86.46
-Addis-Ababa 55.36
-Algiers	48.28	
-Amman 56.18
-Amsterdam 63.89
-Ankara 56.38
-Athens 50.01
-Baghdad 42
-Baku 73.31
-Bangkok 51.61
-Beijing 61.79
-Beirut 50.61
-Belgrade 61.7
-Berlin 57.88
-Bern 81.53
-Bogota 37.32
-Brasilia 34.65
-Bratislava 68.84
-Brussels 47.04
-Bucharest 71.82
-Budapest 61.11
-Buenos-Aires 36.97
-Cairo 42.53
-Canberra 77.24
-Caracas 17.64
-Copenhagen 78.73
+Abu-Dhabi 86.46 65.8
+Addis-Ababa 55.36 78.65
+Algiers	48.28 87.8	
+Amman 56.18 70.37
+Amsterdam 63.89 49.40
+Ankara 56.38 85.45
+Athens 50.01 86.98
+Baghdad 42 78.87
+Baku 73.31 93.78
+Bangkok 51.61 76.68
+Beijing 61.79 82.02
+Beirut 50.61 66.29
+Belgrade 61.7 86.78
+Berlin 57.88 62.14
+Bern 81.53 11.59
+Bogota 37.32 89.45
+Brasilia 34.65 75.08
+Bratislava 68.84 78.12
+Brussels 47.04 53.85 
+Bucharest 71.82 86.17
+Budapest 61.11 81.08
+Buenos-Aires 36.97 72.94
+Cairo 42.53 99.04 
+Canberra 77.24 53.75
+Caracas 17.64 90.6
+Copenhagen 78.73 42.28
 Damascus 32.96
 Dhaka 30.37
 Dili 38.67
