@@ -9,24 +9,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(function (req, res, next) {
-   res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
-   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-   res.setHeader('Access-Control-Allow-Credentials', true);
-   next();
-});
+app.use(express.static(__dirname + '/client'));
+// app.use(function (req, res, next) {
+//    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+//    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//    res.setHeader('Access-Control-Allow-Credentials', true);
+//    next();
+// });
 
 
 
 app.get('/', function (req, res) {
     routes.getMainPage(req, res, function (data) {
-        res.send(data);
+        res.sendFile(data);
     })
 })
 app.post('/', function (req, res) {
     routes.findCities(req, res, function (data) {
-    	console.log('inside the call back , data is : ', data)
+      console.log('inside the call back , data is : ', data)
         res.send(data);
     })
 })
