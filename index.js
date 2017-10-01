@@ -3,7 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var routes = require('./server/routes.js');
 var app = express();
-var cities = require('./database/index.js').cities; 
 
 var port = process.env.PORT || 3000 ;
 app.use(bodyParser.json());

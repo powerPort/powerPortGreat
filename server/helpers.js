@@ -16,11 +16,12 @@ exports.fetcher = function () {
 	});
 	return array;
 }
-var count = 0;
+//var count = 0;
 exports.API = function (cityName, callback) {
-	count++;
+	//count++;
 	var temp ;
-	var key = count > 55 ? keys['powerPortAshar'] : keys['hiba']
+	//var key = count > 55 ? keys['powerPortAshar'] : keys['hiba']
+	var key = keys['powerPortAshar'];
 	var url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
 	var options = {
 	    url:url ,
