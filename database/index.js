@@ -18,8 +18,8 @@ var weatherSchema = new schema ({
     name: String,
     weather: Number
 });
-var weather = mongoose.model('weather', weatherSchema);
-exports.weather = weather;
+var weathers = mongoose.model('weathers', weatherSchema);
+exports.weathers = weathers;
 
 /****************************************************************************************/
 
@@ -37,21 +37,24 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 			}
 		}
 		var currentDate = (new Date()).getDay()
-
+		
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
 			fs.writeFileSync('database/lastUpdate',currentDate);
 			console.log("you shouldnt appear");
-			for (var i = 0; i < 59; i++) {
+			for (var i = 59; i < data.length ; i++) {
 				helper.API(data[i].name , function (cityName, temp) {
-					var rank = 100 - Math.abs(((( temp ) - 273) / (2.73/2)));
+					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
 					var tempRank =  rank < 0 ? 0 : rank ;
 					var obj = {name : cityName , weather : tempRank.toFixed(2)} ;
 					console.log(obj);
- 					weather.insertMany([obj]);
+ 					weathers.insertMany(obj);
 				});
 		        
 			}
 		}
+		/*weathers.find().exec((err , d)=>{
+		  console.log('data.lenght : ', d.length);	
+		})*/
         })
 })();
 

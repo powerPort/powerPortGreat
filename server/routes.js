@@ -3,6 +3,7 @@ var db = require('../database/index.js');
 const fs = require('fs');
 const path = require('path');
 var cities = require('../database/index.js').cities; 
+var weathers = require('../database/index.js').weathers; 
 
 
 exports.getMainPage = function(req, res, callback) {
@@ -21,14 +22,22 @@ exports.findCities = function (req, res, CB) {
   //to get results from db ..
   cities.find().exec(function(err , citiesArr) {
     //citiesArr is like = [ {id:  , name: , security: , cost: , weather:  },{},..];
-    var results = [];
+    weathers.find().exec((err, weathersArr) => {
+
+      var weth = {};
+      weathersArr.forEach((item) => {
+        weth[item.name] = parseInt(item.weather) * criteria.wheater
+      })
+
+      var results = [];
     //do something to the citiesArr to count the mark of each city
     citiesArr.forEach((cityRow) => {
       //the mark depends on the criteria that the user provided 
-      var avg = parseInt(cityRow.cost) * criteria.cost +
-       parseInt(cityRow.security) * criteria.security ; // still need weather mark
 
-       //results will have cities like this one : 
+      var avg = parseInt(cityRow.cost) * criteria.cost +
+       parseInt(cityRow.security) * criteria.security +
+        weth[cityRow.name]; 
+      //results will have cities like this one : 
       //create obj for each city :
       var city = {
         name : cityRow.name ,
@@ -50,6 +59,9 @@ exports.findCities = function (req, res, CB) {
         results.push(city);
       }
     });
+
+
     CB(results.slice(0,10));
+    })
   })
 }
