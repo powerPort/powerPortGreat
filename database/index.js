@@ -41,7 +41,7 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
 			fs.writeFileSync('database/lastUpdate',currentDate);
 			console.log("you shouldnt appear");
-			for (var i = 59; i < data.length ; i++) {
+			for (var i = 0 ; i < data.length ; i++) {
 				helper.API(data[i].name , function (cityName, temp) {
 					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
 					var tempRank =  rank < 0 ? 0 : rank ;
