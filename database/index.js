@@ -60,7 +60,7 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 
 /**************************************************************************************/
 
-var connectionURL = 'mongodb://127.0.0.1/powerPort' ; 
+var connectionURL = 'mongodb://power-port:PowerPort@ds159344.mlab.com:59344/power-port' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });
