@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var request = require('request');
-var key = require('./config.js');
+var keys = require('./config.js');
 
 exports.fetcher = function () {
 	var citiesArr = fs.readFileSync('./database/json.txt').toString().split('\r\n');
@@ -16,18 +16,26 @@ exports.fetcher = function () {
 	});
 	return array;
 }
-
-exports.API = function (cityName) {
+var count = 0;
+exports.API = function (cityName, callback) {
+	count++;
 	var temp ;
-	var url = "api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
+	var key = count > 55 ? keys['powerPortAshar'] : keys['hiba']
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
 	var options = {
 	    url:url ,
 	    headers: {
 	      'User-Agent': 'request'
-	    }
+	    },
+	    method : 'get'
 	}
-	request(options, function (error, response, body) {
-		temp = body.list.main.temp;
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		} else {
+		  body = JSON.parse(body);
+		  temp = body.main.temp;	
+                  callback(cityName , temp)
+		}
 	});
-	return temp;
 }

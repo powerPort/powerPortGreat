@@ -31,7 +31,7 @@ Dublin 48.02 49.20
 Hanoi 50.14 84.18
 Harare 48.02 76.38
 Helsinki 75.36 50.21
-Hong Kong 79.93 56.61
+Hong-Kong 79.93 56.61
 Islamabad 60.87 92.75
 Jakarta 46.76 80.44
 Kathmandu 65.64 92.08

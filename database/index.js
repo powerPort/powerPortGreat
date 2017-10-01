@@ -18,18 +18,16 @@ var weatherSchema = new schema ({
     name: String,
     weather: Number
 });
-var weather = mongoose.model('weather', weatherSchema);
-exports.weather = weather;
+var weathers = mongoose.model('weathers', weatherSchema);
+exports.weathers = weathers;
 
 /****************************************************************************************/
 
 var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
-console.log(typeof lastUpdate)
 if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 (function(){
 	cities.find().exec(function(err, data){
-		console.log('data : ')
-		console.log(data.length)
+		//console.log('data : ', data.length )
 		if (data.length === 0) {
 			console.log("you shouldnt appear")
 			var objectsCities = helper.fetcher();
@@ -39,18 +37,30 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 			}
 		}
 		var currentDate = (new Date()).getDay()
+		
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
-			for (var i = 0; i < data.length; i++) {
-				var tempRank = helper.API(data[i].name);
-		        weather.insertMany([{name : data[i].name , weather : tempRank}]);
+			fs.writeFileSync('database/lastUpdate',currentDate);
+			console.log("you shouldnt appear");
+			for (var i = 0 ; i < data.length ; i++) {
+				helper.API(data[i].name , function (cityName, temp) {
+					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
+					var tempRank =  rank < 0 ? 0 : rank ;
+					var obj = {name : cityName , weather : tempRank.toFixed(2)} ;
+					console.log('inside API , adding : ', obj);
+ 					weathers.insertMany([obj]);
+				});
+		        
 			}
 		}
-    })
+		/*weathers.find().exec((err , d)=>{
+		  console.log('data.lenght : ', d.length);	
+		})*/
+        })
 })();
 
 /**************************************************************************************/
 
-var connectionURL = 'mongodb://127.0.0.1/powerPort' ; 
+var connectionURL = 'mongodb://newport:newport@ds159344.mlab.com:59344/power-port' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });
