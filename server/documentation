@@ -1,0 +1,7 @@
+**documentation for server functionality  :**
+- [ ] our server will recieve the following methodes : 
+__ get / main page : __ will return the main page
+__ post / main page : __ 
+body contains object. of criteria that user choose  : 
+
+will return array of cities ordered as the 
