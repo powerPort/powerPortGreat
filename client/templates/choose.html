@@ -1,37 +1,33 @@
-<div>
-   	<h3>cost :</h3>
-   	
-   		<select id="cost">
+<center> 
+<div class="form-group">
+  <br><br>
+   	<h3 style="display:inline" ><font color="00695C"> cost </font> </h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   	 	<select class="form-control" style="display:inline;width:20%;" id="cost">
        <option
        ng-repeat="num in $ctrl.generatore"
        > {{num}}</option>
        </select>
-
-       <h3>Security :</h3>
+       <br><br>
+       <h3 style="display:inline"><font color="00695C"> Security</font> </h3>
    	
-   		<select id="security">
+   		<select class="form-control" style=" display:inline;width:20%;" id="security">
        <option
        ng-repeat="num in $ctrl.generatore"
        >{{num}}</option>
        </select>
 
+       <br><br>
 
-
-       <h3>Wheater :</h3>
+       <h3 style="display:inline"><font color="00695C"> Weather </font></h3>
    	
-   		<select id="wheater">
+   		<select  class="form-control" style="display:inline;width:20%;" id="weather"  >
        <option
        ng-repeat="num in $ctrl.generatore"
        > {{num}}</option>
        </select>
- 		<br><br>
-       <button ng-click="$ctrl.find()"> find submit </button>
-       <ul>
-       <div ng-repeat="city in $ctrl.cities">
-         {{city.name}}
-
-        
-       </div>
-       </ul>
+ 		<br><br>&nbsp;&nbsp;&nbsp;&nbsp;
+       <button style = " background-color:#00695C"class="btn btn-primary" ng-click="$ctrl.find()"> find submit </button>
+      <cities cities="$ctrl.cities"></cities>
 
    	</div>
+    </center>
