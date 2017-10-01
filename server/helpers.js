@@ -36,7 +36,7 @@ exports.API = function (cityName, callback) {
 		} else {
 		  body = JSON.parse(body);
 		  temp = body.main.temp;	
-                   callback(temp)
+                  callback(cityName , temp)
 		}
 	});
 }
