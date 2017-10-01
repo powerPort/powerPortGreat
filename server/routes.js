@@ -32,7 +32,8 @@ exports.findCities = function (req, res, CB) {
       //create obj for each city :
       var city = {
         name : cityRow.name ,
-        mark : avg
+        mark : avg , 
+        votes : 0
       }
 
       //give the ele a place in the results arr -they have to be ordered :  

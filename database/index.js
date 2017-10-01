@@ -39,12 +39,15 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 		var currentDate = (new Date()).getDay()
 
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			fs.writeFileSync('database/lastUpdate',currentDate);
+			console.log("you shouldnt appear");
 			for (var i = 0; i < 59; i++) {
-				helper.API(data[i].name , function (temp) {
-					var rank = 100 - Math.abs(((( temp ) - 273) / (2.73*2)));
-					console.log(rank);
+				helper.API(data[i].name , function (cityName, temp) {
+					var rank = 100 - Math.abs(((( temp ) - 273) / (2.73/2)));
 					var tempRank =  rank < 0 ? 0 : rank ;
- 					weather.insertMany([{name : data[i].name , weather : tempRank}]);
+					var obj = {name : cityName , weather : tempRank.toFixed(2)} ;
+					console.log(obj);
+ 					weather.insertMany([obj]);
 				});
 		        
 			}
