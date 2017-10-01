@@ -17,17 +17,23 @@ exports.fetcher = function () {
 	return array;
 }
 
-exports.API = function (cityName) {
+exports.API = function (cityName, callback) {
 	var temp ;
-	var url = "api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
 	var options = {
 	    url:url ,
 	    headers: {
 	      'User-Agent': 'request'
-	    }
+	    },
+	    method : 'get'
 	}
-	request(options, function (error, response, body) {
-		temp = body.list.main.temp;
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		} else {
+		  body = JSON.parse(body);
+		  temp = body.main.temp;	
+                   callback(temp)
+		}
 	});
-	return temp;
 }

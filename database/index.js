@@ -24,12 +24,10 @@ exports.weather = weather;
 /****************************************************************************************/
 
 var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
-console.log(typeof lastUpdate)
 if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 (function(){
 	cities.find().exec(function(err, data){
-		console.log('data : ')
-		console.log(data.length)
+		//console.log('data : ', data.length )
 		if (data.length === 0) {
 			console.log("you shouldnt appear")
 			var objectsCities = helper.fetcher();
@@ -39,11 +37,17 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 			}
 		}
 		var currentDate = (new Date()).getDay()
+
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
-			for (var i = 0; i < data.length; i++) {
-				var tempRank = helper.API(data[i].name);
-		        weather.insertMany([{name : data[i].name , weather : tempRank}]);
-			}
+			/*for (var i = 0; i < data.length; i++) {
+				helper.API(data[i].name , function (temp) {
+					var rank = 100 - Math.abs(((( temp ) - 273) / 2.73));
+					console.log(rank);
+					var tempRank =  rank < 0 ? 0 : rank ;
+ 					weather.insertMany([{name : data[i].name , weather : tempRank}]);
+				});
+		        
+			}*/
 		}
     })
 })();
