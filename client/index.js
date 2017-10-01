@@ -11,10 +11,17 @@ angular.module('app', [])
    			var cost = document.getElementById('cost').value;
    			var wheater = document.getElementById('weather').value;
    		
-            //send data to server using POST
+            //send data to server using POST 
+            // var dep = process.env.PORT 
+            // var url ;
+            // if (dep) {
+            //    url = "https://still-temple-77788.herokuapp.com/"
+            // } else {
+            //    url = 'http://127.0.0.1:3000/'
+            // }
    			$.ajax({ 
    				type : 'POST',
-   				url : 'http://127.0.0.1:3000/',
+   				url : "https://still-temple-77788.herokuapp.com/" ,
    				data : {cost : cost, security : security, wheater : wheater} ,
    				success : function(data) {
                    currentCities = [];

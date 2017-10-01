@@ -20,9 +20,13 @@ exports.findCities = function (req, res, CB) {
   //the criteria is something like : { cost: '0', security: '0', wheater: '0' }
   console.log('post req : findCities , criteria : ', criteria);
   //to get results from db ..
-  cities.find().exec(function(err , citiesArr) {
+  cities.find().exec(function(error , citiesArr) {
     //citiesArr is like = [ {id:  , name: , security: , cost: , weather:  },{},..];
     weathers.find().exec((err, weathersArr) => {
+    if (err) {
+      console.log(err)
+    }
+    console.log('weath arr from find()  : ', weathersArr)
 
       var weth = {};
       weathersArr.forEach((item) => {

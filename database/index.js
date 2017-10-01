@@ -46,8 +46,8 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
 					var tempRank =  rank < 0 ? 0 : rank ;
 					var obj = {name : cityName , weather : tempRank.toFixed(2)} ;
-					console.log(obj);
- 					weathers.insertMany(obj);
+					console.log('inside API , adding : ', obj);
+ 					weathers.insertMany([obj]);
 				});
 		        
 			}
@@ -60,7 +60,7 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 
 /**************************************************************************************/
 
-var connectionURL = 'mongodb://127.0.0.1/powerPort' ; 
+var connectionURL = 'mongodb://newport:newport@ds159344.mlab.com:59344/power-port' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });
