@@ -1,24 +1,43 @@
 //main server file
 var express = require('express');
+var bodyParser = require('body-parser');
 var routes = require('./server/routes.js');
 var app = express();
-//app.use(require('body-parser'));
-
-//the idea i'm trying to do is to get any function from the routes and send the request and the response to it with a callback that will be invoked by that function 
-app.get('/', function (req, res) {
-    routes.getMainPage(req, res, function (data) {
-        res.send(data);
-    })
-})
-app.get('/someOtherEndPoint', function (req, res) {
-    routes.anotherFunction(req, res, function (data) {
-        res.send(data);
-    })
-})
 
 var port = process.env.PORT || 3000 ;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static(__dirname + '/client'));
+// app.use(function (req, res, next) {
+//    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+//    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//    res.setHeader('Access-Control-Allow-Credentials', true);
+//    next();
+// });
+
+
+
+app.get('/', function (req, res) {
+    routes.getMainPage(req, res, function (data) {
+        res.sendFile(data);
+    })
+})
+app.post('/', function (req, res) {
+    routes.findCities(req, res, function (data) {
+      console.log('inside the call back , data is : ', data)
+        res.send(data);
+    })
+})
+
 app.listen(port , function () {
   console.log('server is on at port : ' + port );
 });
 
 module.exports = app;
+
+
+
+

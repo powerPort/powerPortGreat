@@ -1,27 +1,67 @@
-//define mongoose
 var mongoose = require ('mongoose');
-//small shortcut
-var schema = mongoose.schema ;
+var schema = mongoose.Schema ; //small shortcut
 mongoose.Promise = require('bluebird');
-
-
-//add a table here 
-var someSchema = schema ({
-    id : STRING
+var fs  = require("fs");
+var helper = require('../server/helpers')
+/****************************************************************************************/
+var citiesSchema = new schema ({
+    id : Number,
+    name: String,
+    cost: Number,
+    security: Number
 });
-exports.tableName = mongoose.model('tableName', someSchema);
-
-
-
-
-//add another table here 
-var someOtherSchema = schema ({
-    id : STRING
+var cities = mongoose.model('cities', citiesSchema);
+exports.cities = cities;
+/****************************************************************************************/
+var weatherSchema = new schema ({
+    id : Number,
+    name: String,
+    weather: Number
 });
-exports.OthertableName = mongoose.model('OthertableName', someOtherSchema);
+var weathers = mongoose.model('weathers', weatherSchema);
+exports.weathers = weathers;
 
+/****************************************************************************************/
 
-var connectionURL = 'mongodb://localhost/powerPort' ; // i think there have to be something with mlab , right?
+var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
+if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
+(function(){
+	cities.find().exec(function(err, data){
+		//console.log('data : ', data.length )
+		if (data.length === 0) {
+			console.log("you shouldnt appear")
+			var objectsCities = helper.fetcher();
+			for (var i = 0; i < objectsCities.length; i++) {
+				obj  = objectsCities[i]
+				cities.insertMany([obj]);
+			}
+		}
+		var currentDate = (new Date()).getDay()
+		
+		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			fs.writeFileSync('database/lastUpdate',currentDate);
+			console.log("you shouldnt appear");
+			for (var i = 0 ; i < data.length ; i++) {
+				helper.API(data[i].name , function (cityName, temp) {
+					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
+					var tempRank =  rank < 0 ? 0 : rank ;
+					var obj = {name : cityName , weather : tempRank.toFixed(2)} ;
+					console.log(obj);
+ 					weathers.insertMany(obj);
+				});
+		        
+			}
+		}
+		/*weathers.find().exec((err , d)=>{
+		  console.log('data.lenght : ', d.length);	
+		})*/
+        })
+})();
+
+/**************************************************************************************/
+
+var connectionURL = 'mongodb://127.0.0.1/powerPort' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });
+
