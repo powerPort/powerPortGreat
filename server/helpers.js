@@ -1,14 +1,42 @@
 var fs = require('fs');
 var path = require('path');
+var request = require('request');
+var keys = require('./config.js');
 
-
-//get data from the file and return it as obj {cityName:['x', 'x', 'x']}
 exports.fetcher = function () {
-	var citiesArr = fs.readFileSync(path.join(__dirname + '/../database/json.txt')).split('\n');
-	var obj = {};
+	var citiesArr = fs.readFileSync('./database/json.txt').toString().split('\r\n');
+	var array = []
 	citiesArr.forEach((ele) => {
 		var lineArr = ele.split(' ');
-		obj[lineArr[0]] = lineArr.slice(0);
+		var obj = {};
+		obj["name"] = lineArr[0]
+		obj["security"] = lineArr[1]
+		obj["cost"] = lineArr[2]
+		array.push(obj)
 	});
-	return obj;
+	return array;
+}
+//var count = 0;
+exports.API = function (cityName, callback) {
+	//count++;
+	var temp ;
+	//var key = count > 55 ? keys['powerPortAshar'] : keys['hiba']
+	var key = keys['powerPortAshar'];
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
+	var options = {
+	    url:url ,
+	    headers: {
+	      'User-Agent': 'request'
+	    },
+	    method : 'get'
+	}
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		} else {
+		  body = JSON.parse(body);
+		  temp = body.main.temp;	
+                   callback(temp)
+		}
+	});
 }

@@ -1,54 +1,60 @@
-//define mongoose
 var mongoose = require ('mongoose');
-//small shortcut
-var schema = mongoose.Schema ;
+var schema = mongoose.Schema ; //small shortcut
 mongoose.Promise = require('bluebird');
 var fs  = require("fs");
-
-
-//add a table here 
+var helper = require('../server/helpers')
+/****************************************************************************************/
 var citiesSchema = new schema ({
     id : Number,
     name: String,
     cost: Number,
-    security: Number,
+    security: Number
+});
+var cities = mongoose.model('cities', citiesSchema);
+exports.cities = cities;
+/****************************************************************************************/
+var weatherSchema = new schema ({
+    id : Number,
+    name: String,
     weather: Number
 });
-exports.cities = mongoose.model('cities', citiesSchema);
+var weather = mongoose.model('weather', weatherSchema);
+exports.weather = weather;
 
-var allLines = fs.readFileSync('./database/json.txt').toString().split('\n');
-// console.log(allLines)
+/****************************************************************************************/
 
-if (allLines[0].split(' ').length === 3 || allLines[0].split(' ')[4] === '' ) {
-
-	fs.writeFileSync('./database/json.txt',  (function(){
-	    var newLine = '';
-		allLines.forEach(function (line) { 
-		nameCity = line.split(" ")[0]
-			var options = {
-			  url:"api.openweathermap.org/data/2.5/weather?q=" + nameCity,
-				  headers: {
-				    'User-Agent': 'request'
-				  }
+var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
+if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
+(function(){
+	cities.find().exec(function(err, data){
+		//console.log('data : ', data.length )
+		if (data.length === 0) {
+			console.log("you shouldnt appear")
+			var objectsCities = helper.fetcher();
+			for (var i = 0; i < objectsCities.length; i++) {
+				obj  = objectsCities[i]
+				cities.insertMany([obj]);
 			}
-		request(options, function (error, response, body) {
+		}
+		var currentDate = (new Date()).getDay()
 
-		});
+		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			for (var i = 0; i < 59; i++) {
+				helper.API(data[i].name , function (temp) {
+					var rank = 100 - Math.abs(((( temp ) - 273) / (2.73*2)));
+					console.log(rank);
+					var tempRank =  rank < 0 ? 0 : rank ;
+ 					weather.insertMany([{name : data[i].name , weather : tempRank}]);
+				});
+		        
+			}
+		}
+        })
+})();
 
-		newLine += line + " "+ x+ " ***";
-	    })
-	    console.log(newLine)
-	    return newLine ;
-	})() , 'utf8')
-}
+/**************************************************************************************/
 
-
-// fs.writeFile('json.txt', 'Hello Node.js', (err) => {
-//   if (err) throw err;
-//   console.log('The file has been saved!');
-// });
-
-var connectionURL = 'mongodb://localhost/powerPort' ; // i think there have to be something with mlab , right?
+var connectionURL = 'mongodb://127.0.0.1/powerPort' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });
