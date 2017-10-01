@@ -3,6 +3,25 @@ var path = require('path');
 var request = require('request');
 var keys = require('./config.js');
 
+
+exports.CityInfo = function (cityName) {
+	var url = 'https://api.teleport.org/api/urban_areas/slug:' + cityName + '/'
+        request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		  callback(error)
+		} else {
+		  body = JSON.parse(body);
+		  var img = body.photos.image.web
+		  var obj = {
+		  	name : cityName ,
+		  	img : img 
+		  }
+                  callback(null , obj)
+		}
+        });
+}
+
 exports.fetcher = function () {
 	var citiesArr = fs.readFileSync('./database/json.txt').toString().split('\r\n');
 	var array = []
@@ -16,6 +35,8 @@ exports.fetcher = function () {
 	});
 	return array;
 }
+
+//to switch the key for the api so the api will not block us : we have 60 req allowed per min
 var count = 0;
 exports.API = function (cityName, callback) {
 	count++;

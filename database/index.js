@@ -39,6 +39,8 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 		var currentDate = (new Date()).getDay()
 		
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			//erase previouse content of the table : 
+			weathers.drop();
 			fs.writeFileSync('database/lastUpdate',currentDate);
 			console.log("you shouldnt appear");
 			for (var i = 0 ; i < data.length ; i++) {
