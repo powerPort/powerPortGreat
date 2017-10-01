@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var request = require('request');
-var key = require('./config.js');
+var keys = require('./config.js');
 
 exports.fetcher = function () {
 	var citiesArr = fs.readFileSync('./database/json.txt').toString().split('\r\n');
@@ -16,9 +16,11 @@ exports.fetcher = function () {
 	});
 	return array;
 }
-
+var count = 0;
 exports.API = function (cityName, callback) {
+	count++;
 	var temp ;
+	var key = count > 55 ? keys['powerPortAshar'] : keys['hiba']
 	var url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + '&appid=' + key ;
 	var options = {
 	    url:url ,
