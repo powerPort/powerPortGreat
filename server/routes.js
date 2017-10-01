@@ -6,16 +6,17 @@ const path = require('path');
 
 exports.getMainPage = function(req, res, callback) {
   //do something to get the data => the main page ;
-  var mainPage = fs.readFileSync(__dirname + '/../client/index.html').toString();
+  //var mainPage = fs.readFileSync(__dirname + '/../client/index.html').toString();
   //send it to the callback ;
-  callback(mainPage);
+  //callback(mainPage);
+  callback(__dirname + '/../client/index.html'); //????
 }
 
 
 exports.findCities = function (req, res, CB) {
-	var criteria = req.body;
+  var criteria = req.body;
   //the criteria is something like : { cost: '0', security: '0', wheater: '0' }
-	console.log('post req : findCities , criteria : ', criteria);
+  console.log('post req : findCities , criteria : ', criteria);
   //to get results from db ..
   cities.find().exec(function(citiesArr) {
     //citiesArr is like = [ {id:  , name: , security: , cost: , weather:  },{},..];
