@@ -38,8 +38,8 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 		}
 		var currentDate = (new Date()).getDay()
 
-		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
-			/*for (var i = 0; i < data.length; i++) {
+		/*if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			for (var i = 0; i < data.length; i++) {
 				helper.API(data[i].name , function (temp) {
 					var rank = 100 - Math.abs(((( temp ) - 273) / 2.73));
 					console.log(rank);
@@ -47,9 +47,9 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
  					weather.insertMany([{name : data[i].name , weather : tempRank}]);
 				});
 		        
-			}*/
-		}
-    })
+			}
+		}*/
+        })
 })();
 
 /**************************************************************************************/
