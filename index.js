@@ -25,10 +25,23 @@ app.get('/', function (req, res) {
         res.sendFile(data);
     })
 })
+
 app.post('/', function (req, res) {
     routes.findCities(req, res, function (data) {
       console.log('inside the call back , data is : ', data)
         res.send(data);
+    })
+})
+
+//this func will recieve a city name and return it's info :
+app.post('/city', function (req, res) {
+    routes.cityInfo(req, res, function (data) {
+      console.log('inside the call back , findCityInfo of: ', req.body)
+      if (err) {
+      	res.send('no data');
+      } else {
+        res.send(data);
+      }
     })
 })
 

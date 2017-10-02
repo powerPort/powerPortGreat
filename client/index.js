@@ -17,11 +17,11 @@ angular.module('app', [])
             // if (dep) {
             //    url = "https://still-temple-77788.herokuapp.com/"
             // } else {
-            //    url = 'http://127.0.0.1:3000/'
+            //    url = ''https://still-temple-77788.herokuapp.com/
             // }
    			$.ajax({ 
    				type : 'POST',
-   				url : "https://still-temple-77788.herokuapp.com/" ,
+   				url : "http://127.0.0.1:3000/" ,
    				data : {cost : cost, security : security, wheater : wheater} ,
    				success : function(data) {
                    currentCities = [];
