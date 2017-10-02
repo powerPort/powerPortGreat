@@ -34,16 +34,16 @@ app.post('/', function (req, res) {
 })
 
 //this func will recieve a city name and return it's info :
-app.post('/city', function (req, res) {
-    routes.cityInfo(req, res, function (data) {
-      console.log('inside the call back , findCityInfo of: ', req.body)
-      if (err) {
-      	res.send('no data');
-      } else {
-        res.send(data);
-      }
-    })
-})
+// app.post('/city', function (req, res) {
+//     routes.cityInfo(req, res, function (data) {
+//       console.log('inside the call back , findCityInfo of: ', req.body)
+//       if (err) {
+//       	res.send('no data');
+//       } else {
+//         res.send(data);
+//       }
+//     })
+// })
 
 app.listen(port , function () {
   console.log('server is on at port : ' + port );
