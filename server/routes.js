@@ -26,11 +26,15 @@ exports.findCities = function (req, res, CB) {
     if (err) {
       console.log(err)
     }
-    console.log('weath arr from find()  : ', weathersArr)
+    //console.log('weath arr from find()  : ', weathersArr)
 
       var weth = {};
       weathersArr.forEach((item) => {
-        weth[item.name] = parseInt(item.weather) * criteria.wheater
+        weth[item.name] = [
+          parseInt(item.weather) * criteria.wheater,
+          parseInt(item.longitude), 
+          parseInt(item.latitude)
+          ]
       })
 
       var results = [];
@@ -40,11 +44,13 @@ exports.findCities = function (req, res, CB) {
 
       var acc = parseInt(cityRow.cost) * criteria.cost +
        parseInt(cityRow.security) * criteria.security +
-        weth[cityRow.name]; 
+        weth[cityRow.name][0]; 
       //results will have cities like this one : 
       //create obj for each city :
       var city = {
         name : cityRow.name ,
+        longitude : weth[cityRow.name][1] ,
+        latitude :  weth[cityRow.name][2],
         mark : acc , 
         votes : 0
       }
@@ -65,9 +71,9 @@ exports.findCities = function (req, res, CB) {
         results.push(city);
       }
 
-      console.log(city)
+      //console.log(city)
     });
-    console.log(results)
+    console.log(results.slice (0,10))
 
     CB(results.slice(0,10));
     })

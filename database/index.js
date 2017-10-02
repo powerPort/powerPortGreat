@@ -16,7 +16,9 @@ exports.cities = cities;
 var weatherSchema = new schema ({
     id : Number,
     name: String,
-    weather: Number
+    weather: Number,
+    longitude: Number,
+    latitude: Number
 });
 var weathers = mongoose.model('weathers', weatherSchema);
 exports.weathers = weathers;
@@ -58,7 +60,7 @@ var updater = function (){
 				helper.API(data[i].name , function (cityName, temp, long, Lat) {
 					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
 					var tempRank =  rank < 0 ? 0 : rank ;
-					var obj = {name : cityName , weather : tempRank.toFixed(2), longitude :  long, Latitude : Lat} ;
+					var obj = {name : cityName , weather : tempRank.toFixed(2), longitude :  long, latitude : Lat} ;
 					console.log('inside API , adding : ', obj);
 						weathers.insertMany([obj]);
 				});

@@ -4,5 +4,10 @@ angular.module('app')
 	bindings:{
 		cities : '<'
 	},
+	controller : ($scope, $location)=> {
+	    $scope.changeView = function(view){
+                $location.path(view); // path not hash
+            }
+	},
    	templateUrl :`../templates/cities.html`
    })
