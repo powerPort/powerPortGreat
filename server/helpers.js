@@ -3,8 +3,11 @@ var path = require('path');
 var request = require('request');
 var keys = require('./config.js');
 
+exports.cityInfo = function (cityName , callback) {
+cityPic
+}
 
-exports.CityInfo = function (cityName) {
+var cityPic = function (cityName) {
 	var url = 'https://api.teleport.org/api/urban_areas/slug:' + cityName + '/'
         request(url, function (error, response, body) {
 		if (error) {
@@ -13,6 +16,7 @@ exports.CityInfo = function (cityName) {
 		} else {
 		  body = JSON.parse(body);
 		  var img = body.photos.image.web
+		  console.log(img)
 		  var obj = {
 		  	name : cityName ,
 		  	img : img 

@@ -34,8 +34,8 @@ app.post('/', function (req, res) {
 })
 
 //this func will recieve a city name and return it's info :
-app.post('/', function (req, res) {
-    routes.CityInfo(req, res, function (err, data) {
+app.post('/city', function (req, res) {
+    routes.cityInfo(req, res, function (data) {
       console.log('inside the call back , findCityInfo of: ', req.body)
       if (err) {
       	res.send('no data');
