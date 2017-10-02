@@ -25,7 +25,7 @@ exports.weathers = weathers;
 
 var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
 if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
-(function(){
+setInterval(() => {
 	cities.find().exec(function(err, data){
 		//console.log('data : ', data.length )
 		if (data.length === 0) {
@@ -39,6 +39,8 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 		var currentDate = (new Date()).getDay()
 		
 		if (lastUpdate < currentDate || (lastUpdate === 7 && currentDate === 0))  {
+			//erase previouse content of the table : 
+			weathers.drop();
 			fs.writeFileSync('database/lastUpdate',currentDate);
 			console.log("you shouldnt appear");
 			for (var i = 0 ; i < data.length ; i++) {
@@ -49,14 +51,11 @@ if (!lastUpdate) fs.writeFileSync('database/lastUpdate', (new Date()).getDay());
 					console.log('inside API , adding : ', obj);
  					weathers.insertMany([obj]);
 				});
-		        
 			}
 		}
-		/*weathers.find().exec((err , d)=>{
-		  console.log('data.lenght : ', d.length);	
-		})*/
         })
-})();
+}, 24*60*60*1000);
+
 
 /**************************************************************************************/
 
