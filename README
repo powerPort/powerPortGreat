@@ -1,2 +1,8 @@
 @powerPort
 
+{
+	"_id" : ObjectId("59d1d8bbd01aa229b022f1ac"),
+	"__v" : 0,
+	"name" : "Washington",
+	"weather" : 89.99
+}
