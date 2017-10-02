@@ -1,4 +1,3 @@
-//angular main component i.e. App
 angular.module('app', [])
    .component('index' , {
    	controller : function() {
