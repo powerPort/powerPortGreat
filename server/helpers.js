@@ -60,7 +60,9 @@ exports.API = function (cityName, callback) {
 		} else {
 		  body = JSON.parse(body);
 		  temp = body.main.temp;	
-                  callback(cityName , temp)
+		  long = body.coord.lon;	
+		  lat = body.coord.lat;	
+                  callback(cityName , temp, long, lat );
 		}
 	});
 }
