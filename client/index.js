@@ -1,15 +1,23 @@
 angular.module('app', [
-  'ngRoute',
-  'app.cityInfoView'
+  'ngRoute'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
-
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}])
+  $routeProvider
+      .when('/page11', {
+          templateUrl: 'templates/page11.html'
+      })
+      .when('/page22', {
+          templateUrl: 'templates/page22.html',
+      })
+      .otherwise({
+          redirectTo: '/page11'
+      });
+  }])
 .component('index' , {
 	controller : function() {
 		this.generatore = [1,2,3,4,5,6,7,8,9,10]; // this array to generate data in option from 0-10
+		this.citeria = ['cost' , 'security', 'wheate' ]; // this array to generate select tags
 		var currentCities = []
 		this.cities;
 		this.find = function() {

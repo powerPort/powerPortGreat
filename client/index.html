@@ -7,6 +7,10 @@
     <title>PowerPort</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+      <!--<script src="/node_modules/angular/angular.js"></script>-->
+<!--      <script src="https://ajax.googleapis.com/ajax/libs/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js"></script>-->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+<!--      <script src="/node_modules/angular-route/angular-route.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,8 +19,8 @@
   </head>
   <body style="background-color: #E0F2F1">
     <div ng-app="app">
-      <header></header>
-      <index>angular will run hear</index>
+        <navs></navs>
+        <div ng-view></div>
     </div>
     <script src="index.js"></script>
     <script src="componant/header.js"></script>
@@ -25,3 +29,4 @@
     <script src="componant/nav.js"></script>
   </body>
 </html>
+
