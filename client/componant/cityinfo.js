@@ -3,10 +3,7 @@ angular.module('app')
    .component('cityinfo' , {
 	controller : ($scope) => {
 		$scope.cityinfo = window.currentCity;
-		$scope.renderUrl = () => {
-			console.log('https://maps.google.com/maps?q='+$scope.cityinfo.latitude+','+$scope.cityinfo.longitude +'&hl=es;z=14&amp;output=embed')
-			return ('https://maps.google.com/maps?q='+$scope.cityinfo.latitude+','+$scope.cityinfo.longitude +'&hl=es;z=14&amp;output=embed')
-		}
+		$scope.originalUrl = 'https://maps.google.com/maps?q='+$scope.cityinfo.latitude+','+$scope.cityinfo.longitude + '&hl=es;z=14&amp;output=embed' ;
 	},
    	templateUrl :`../templates/cityinfo.html`
    })
