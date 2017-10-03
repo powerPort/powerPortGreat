@@ -5,6 +5,9 @@ var routes = require('./server/routes.js');
 var helpers = require('./server/helpers')
 var app = express();
 
+
+var xFrameOptions = require('x-frame-options')
+var middleware = xFrameOptions('https://maps.google.com/')
 var port = process.env.PORT || 3000 ;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -19,15 +22,16 @@ app.use(function (req, res, next) {
    next();
 });
 
-app.post('/cities',function(req,res){
+app.post('/cities',middleware,function(req,res){
   console.log("post req sent")
-  discAndImg={description:"jjj",images:[]};
-  helpers.findDescrption(req,res,function(req,res,data){
+  discAndImg;
+  helpers.findDescrption(req,res,function(data){
     discAndImg.description = data
   })
-  helpers.findImages(req,res,function(req,res,data){
+  helpers.findImages(req,res,function(data){
   discAndImg.images = data
   })
+  console.log(discAndImg)
     res.send(discAndImg)
 })
 
