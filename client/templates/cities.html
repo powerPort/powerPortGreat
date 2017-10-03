@@ -1,12 +1,15 @@
 <div> 
-<ul>
+    <ul>
 	<br>
-       <div class="alert alert-success  fa-thumbs-o-up
-" ng-repeat="city in $ctrl.cities" style = "width:30%; background-color:#4DB6AC">
+        <div class="alert alert-success  fa-thumbs-o-up
+" ng-repeat="city in $ctrl.cities" ng-click="" style = "width:30%; background-color:#4DB6AC">
 
-         <font color="FFFFFF" > {{city.name}}</font>
-
-        
-       </div>
-       </ul>
+            <font 
+            color="FFFFFF" 
+            ng-click="changeView('cityinfo')"
+            > 
+            {{city.name}}
+            </font>        
+        </div>
+    </ul>
 </div>
