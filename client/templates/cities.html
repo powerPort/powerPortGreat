@@ -2,15 +2,13 @@
     <ul>
 	<br>
         <div class="alert alert-success  fa-thumbs-o-up
-" ng-repeat="city in $ctrl.cities" ng-click="" style = "width:30%; background-color:#4DB6AC">
-
-            <a 
-            color="FFFFFF" 
-            ng-click="changeView('cityinfo')"
-            href="#!page22" 
+" ng-repeat="city in $ctrl.cities track by $index" ng-click="" style = "width:30%; background-color:#4DB6AC">
+            <font 
+                color="FFFFFF" 
+                ng-click="changeView('cityinfo')"
             > 
             {{city.name}}
-            </a>        
+            </font>        
         </div>
     </ul>
 </div>
