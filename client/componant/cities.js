@@ -6,12 +6,7 @@ angular.module('app')
 	},
 	controller : ($scope, $location)=> {
 	    $scope.changeView = function(view){
-	    	//to delete 
-	    	// this.city.description = "description of city :)"
-	    	// this.city.images = ['https://mdbootstrap.com/images/regular/city/img%20(16).jpg' , 'http://www.butterflyhk.com/img/city-guide-img.jpg']
-	    	//
 	    	window.currentCity = this.city ;
-	    	//$location.path(view); // to delete when server is on
 	    	var cityInfo = {
 	    		name : window.currentCity.name ,
 	    		long : window.currentCity.longitude ,
