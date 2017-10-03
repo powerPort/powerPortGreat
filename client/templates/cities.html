@@ -4,12 +4,13 @@
         <div class="alert alert-success  fa-thumbs-o-up
 " ng-repeat="city in $ctrl.cities" ng-click="" style = "width:30%; background-color:#4DB6AC">
 
-            <font 
+            <a 
             color="FFFFFF" 
             ng-click="changeView('cityinfo')"
+            href="#!page22" 
             > 
             {{city.name}}
-            </font>        
+            </a>        
         </div>
     </ul>
 </div>
