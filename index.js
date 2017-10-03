@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var routes = require('./server/routes.js');
+var helpers = require('./server/helpers')
 var app = express();
 
 var port = process.env.PORT || 3000 ;
@@ -18,7 +19,17 @@ app.use(function (req, res, next) {
    next();
 });
 
-
+app.post('/cities',function(req,res){
+  console.log("post req sent")
+  discAndImg={description:"jjj",images:[]};
+  helpers.findDescrption(req,res,function(req,res,data){
+    discAndImg.description = data
+  })
+  helpers.findImages(req,res,function(req,res,data){
+  discAndImg.images = data
+  })
+    res.send(discAndImg)
+})
 
 app.get('/', function (req, res) {
     routes.getMainPage(req, res, function (data) {
