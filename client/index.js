@@ -4,14 +4,17 @@ angular.module('app', [
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
   $routeProvider
-      .when('/page11', {
-          templateUrl: 'views/page11.html'
+      .when('/main', {
+          templateUrl: 'views/main.html'
       })
-      .when('/page22', {
-          templateUrl: 'views/page22.html',
+      .when('/cityinfo', {
+          templateUrl: 'views/cityinfo.html',
+      })
+      .when('/mobile', {
+          templateUrl: 'views/mobile.html',
       })
       .otherwise({
-          redirectTo: '/page11'
+          redirectTo: '/main'
       });
   }])
 .component('index' , {
@@ -35,6 +38,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
 			data : {cost : cost, security : security, wheater : wheater} ,
 			success : function(data) {
           			currentCities = data
+          			window.cities = this.cities;
 			}
 		})
  	// save the data in currentCities in citiees
