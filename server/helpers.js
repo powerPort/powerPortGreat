@@ -40,6 +40,32 @@ exports.fetcher = function () {
 	return array;
 }
 
+exports.findDescrption(req,res,callback){
+
+  var city = req.body.name;
+  var discrption;
+  var url = " https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city +"&limit=100&format=json"
+  
+  var options = {
+	    url:url ,
+	    headers: {
+	      'User-Agent': 'request'
+	    },
+	    method : 'get'
+	}
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		} else {
+		  body = JSON.parse(body);
+		  discrption = body[2][0];	
+		  
+          callback(discrption);
+		}
+	});
+}
+
+
 //to switch the key for the api so the api will not block us : we have 60 req allowed per min
 var count = 0;
 exports.API = function (cityName, callback) {
