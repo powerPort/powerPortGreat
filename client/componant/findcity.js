@@ -1,7 +1,7 @@
 angular.module('app')
    .component('findcity' , {
 	controller : ($scope, $location) => {
-		this.find = () => {
+		$scope.find = () => {
 			var city = $('#cityname').val()
 			$.ajax({ 
 				type : 'POST',
