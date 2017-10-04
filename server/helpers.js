@@ -9,12 +9,12 @@ exports.cityInfo = function (cityName , callback) {
 }
 
 
-var findPlaceId = function(req,res){
+var findPlaceId = function(req,res,callback){
 	var lat = req.body.lat;
 	var long = req.body.long;
 	var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
 	var palceId = [];
-	var url = " https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=500&type=lodging&keyword=bus&key="  + key
+	var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=500&type=lodging&keyword=bus&key=" + key
 	var options = {
 		url:url ,
 		headers: {
@@ -27,55 +27,61 @@ var findPlaceId = function(req,res){
 			console.log('error : ', error.message);
 		} else {
 			body = JSON.parse(body);
-			for (var i = 0; i < body.length; i++) {
-				if (body[i].results.rating > 3.9) {
-					palceId.push(body[i].results.place_id)
-					hotelImage.push(body[i].results.photos.photo_reference)
+			console.log(body)
+			for (var i = 0; i < body["results"].length; i++) {
+				if (body["results"][i].rating > 3.9) {
+					palceId.push(body["results"][i].place_id)
+					//hotelImage.push(body[i].results.photos.photo_reference)
 				}
 			}
-
-			return palceId;
+			console.log(palceId)
+	        callback(palceId);
 		}
 	});
+
 }
 
 exports.findHotel = function(req,res,callback){
-	var city = req.body.name;
-	var palces = findPlaceId(req,res);
-	var hotel = {};
-	var hotels = [];
-	var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"
-	for (var i = 0; i < palces.length; i++) {
+	findPlaceId(req,res,function(places){
+		var hotel = {};
+		var hotels = [];
+		var key = "AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s"
+		var counter = 0;
+		for (var i = 0; i < palces.length; i++) {
 
 
-		var url = " https://maps.googleapis.com/maps/api/place/details/json?placeid=" + palces[i] + "&key=AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"  
-		var options = {
-			url:url ,
-			headers: {
-				'User-Agent': 'request'
-			},
-			method : 'get'
-		}
-		request(url, function (error, response, body) {
-			if (error) {
-				console.log('error : ', error.message);
-			} else {
-				var reviews = [];
-				body = JSON.parse(body);
-				var reviewsText = body["result"]["reviews"]
-				hotel.hotelName = body["result"]["name"];
-				hotel.address = body["result"]["formatted_address"]
-				hotel.rating  = body["result"]["rating"]
-				for (var i = 0; i < reviewsText.length; i++) {
-					reviews.push(reviewsText[i].text)
-				}
-				hotel.reviews = reviews; 
-				hotel.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + hotelImage[i]+ " = "+ key;	
-				hotels.push(hotel);
+			var url = " https://maps.googleapis.com/maps/api/place/details/json?placeid=" + palces[i] + "&key=AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"  
+			var options = {
+				url:url ,
+				headers: {
+					'User-Agent': 'request'
+				},
+				method : 'get'
 			}
-		});
-	}
-	callback(hotels)
+			request(url, function (error, response, body) {
+				counter++;
+				if (error) {
+					console.log('error : ', error.message);
+				} else {
+					var reviews = [];
+					body = JSON.parse(body);
+					var reviewsText = body["result"]["reviews"]
+					hotel.hotelName = body["result"]["name"];
+					hotel.address = body["result"]["formatted_address"]
+					hotel.rating  = body["result"]["rating"]
+					for (var i = 0; i < reviewsText.length; i++) {
+						reviews.push(reviewsText[i].text)
+					}
+					hotel.reviews = reviews; 
+					//hotel.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + hotelImage[i]+ " = "+ key;	
+					hotels.push(hotel);
+				}
+				if(counter === palces.length){
+					callback(hotels)
+				}
+			});
+		}
+	})
 }
 
 exports.fetcher = function () {

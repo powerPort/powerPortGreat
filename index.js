@@ -26,7 +26,6 @@ app.use(function (req, res, next) {
 });
 
 app.post('/cities',function(req,res){
-  console.log("post req sent")
   var discAndImg = {};
   helpers.findDescrption(req,res,function(data){
       discAndImg.description = data
@@ -34,6 +33,7 @@ app.post('/cities',function(req,res){
           discAndImg.images = data
           helpers.findHotel(req,res,function(data){
             discAndImg.hotels = data;
+            console.log(data)
             res.send(discAndImg)
           })
       })
