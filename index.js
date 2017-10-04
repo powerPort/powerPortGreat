@@ -26,14 +26,16 @@ app.use(function (req, res, next) {
 });
 
 app.post('/cities',function(req,res){
-  console.log("post req sent")
   var discAndImg = {};
   helpers.findDescrption(req,res,function(data){
       discAndImg.description = data
       helpers.findImages(req,res,function(data){
           discAndImg.images = data
-          console.log(discAndImg)
-          res.send(discAndImg)
+          helpers.findHotel(req,res,function(data){
+            discAndImg.hotels = data;
+            console.log(data)
+            res.send(discAndImg)
+          })
       })
   })
 })
