@@ -24,7 +24,7 @@
     <small><a 
     	ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#0000FF;text-align:left" target="_blank">See map bigger</a></small>
     <p> hotels </p> 
-    <div ng-repeat="hotel in hotels">
+    <div ng-repeat="hotel in cityinfo.hotels">
     	<font>hotelName : {{hotel.hotelName}} </font>
     	<font>rating : {{hotel.rating}} </font>
     	<font>adress : {{hotel.adress}} </font>
