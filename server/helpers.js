@@ -65,7 +65,7 @@ exports.findDescrption = function(req,res,callback){
 // this will get an array of images from flickr api
 exports.findImages = function(req,res,callback){
 	var city = req.body.name
-	var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=859430b2686be33b36046a2afaa21c46&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
+	var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6d22fece4c9c47cb53d2ceb9e49da8de&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
 	var options = {
 		url:url ,
 	    headers: {
@@ -79,6 +79,7 @@ exports.findImages = function(req,res,callback){
 		} else {
 		  parsed = JSON.parse(body)
 		  var arrayLinks = [];
+		  console.log(parsed)
 		  arrayOfImages = parsed.photos.photo;
 		  for (var i = 0; i < 10; i++) {
 		  	var link = "http://farm"+arrayOfImages[i]["farm"]+".staticflickr.com/"+arrayOfImages[i]["server"]+"/"+arrayOfImages[i]["id"]+"_"+arrayOfImages[i]["secret"]+".jpg/"
