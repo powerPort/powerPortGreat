@@ -24,6 +24,7 @@
     "express": "^4.16.0",
     "min-angular": "^1.2.0",
     "mongoose": "^4.11.13",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "x-frame-options": "^1.0.0"
   }
 }
