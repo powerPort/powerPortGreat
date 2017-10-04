@@ -1,18 +1,10 @@
 //this will have to deal with the database 
-var db = require('../database/index.js');
 const fs = require('fs');
 const path = require('path');
+var db = require('../database/index.js');
 var cities = require('../database/index.js').cities; 
 var weathers = require('../database/index.js').weathers; 
-
-
-exports.getMainPage = function(req, res, callback) {
-  //do something to get the data => the main page ;
-  //var mainPage = fs.readFileSync(__dirname + '/../client/index.html').toString();
-  //send it to the callback ;
-  //callback(mainPage);
-  callback(__dirname + '/../client/index.html'); //????
-}
+console.log('routes , cities :' , cities , 'weathers : ', weathers)
 
 
 exports.findCities = function (req, res, CB) {
@@ -36,7 +28,7 @@ exports.findCities = function (req, res, CB) {
       var weth = {};
       weathersArr.forEach((item) => {
         weth[item.name] = [
-          parseInt(item.weather) * criteria.wheater,
+          parseInt(item.weather) * criteria.weather,
           parseInt(item.longitude), 
           parseInt(item.latitude)
           ]
