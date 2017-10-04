@@ -138,7 +138,7 @@ exports.fetcher = function () {
 }
 
 exports.findDescrption = function(req,res,callback){
-  var city = req.body;
+  var city = req.body.name;
   var discrption;
   var url = " https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city +"&limit=100&format=json"  
   var options = {
