@@ -33,6 +33,7 @@ app.post('/cities',function(req,res){
         info.images = data
         helpers.findHotel(req,res,function(data){ // hotels: [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
           info.hotels = data;
+          console.log(info)
           res.send(info)
         })
       })
