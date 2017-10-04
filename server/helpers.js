@@ -4,27 +4,27 @@ var request = require('request');
 var keys = require('./config.js');
 
 exports.cityInfo = function (cityName , callback) {
-cityPic
+callback(cityPic());
 }
 
-var cityPic = function (cityName) {
-	var url = 'https://api.teleport.org/api/urban_areas/slug:' + cityName + '/'
-        request(url, function (error, response, body) {
-		if (error) {
-		  console.log('error : ', error.message);
-		  callback(error)
-		} else {
-		  body = JSON.parse(body);
-		  var img = body.photos.image.web
-		  console.log(img)
-		  var obj = {
-		  	name : cityName ,
-		  	img : img 
-		  }
-                  callback(null , obj)
-		}
-        });
-}
+// var cityPic = function (cityName) {
+// 	var url = 'https://api.teleport.org/api/urban_areas/slug:' + cityName + '/'
+//         request(url, function (error, response, body) {
+// 		if (error) {
+// 		  console.log('error : ', error.message);
+// 		  callback(error)
+// 		} else {
+// 		  body = JSON.parse(body);
+// 		  var img = body.photos.image.web
+// 		  console.log(img)
+// 		  var obj = {
+// 		  	name : cityName ,
+// 		  	img : img 
+// 		  }
+//                   callback(null , obj)
+// 		}
+//         });
+// }
 
 exports.fetcher = function () {
 	var citiesArr = fs.readFileSync('./database/json.txt').toString().split('\r\n');
@@ -40,6 +40,54 @@ exports.fetcher = function () {
 	return array;
 }
 
+exports.findDescrption = function(req,res,callback){
+  var city = req.body.name;
+  var discrption;
+  var url = " https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city +"&limit=100&format=json"  
+  var options = {
+	    url:url ,
+	    headers: {
+	      'User-Agent': 'request'
+	    },
+	    method : 'get'
+	}
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error : ', error.message);
+		} else {
+		  body = JSON.parse(body);
+		  discrption = body[2][0];	
+          callback(discrption);
+		}
+	});
+}
+
+// this will get an array of images from flickr api
+exports.findImages = function(req,res,callback){
+	var city = req.body.name
+	var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=859430b2686be33b36046a2afaa21c46&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
+	var options = {
+		url:url ,
+	    headers: {
+	    'User-Agent': 'request'
+		},
+		method : 'get'
+	}
+	request(url, function (error, response, body) {
+		if (error) {
+		  console.log('error hiba : ', error.message);
+		} else {
+		  parsed = JSON.parse(body)
+		  var arrayLinks = [];
+		  arrayOfImages = parsed.photos.photo;
+		  for (var i = 0; i < 10; i++) {
+		  	var link = "http://farm"+arrayOfImages[i]["farm"]+".staticflickr.com/"+arrayOfImages[i]["server"]+"/"+arrayOfImages[i]["id"]+"_"+arrayOfImages[i]["secret"]+".jpg/"
+		  	arrayLinks.push(link)
+		  }
+          callback(arrayLinks);
+		}
+	});
+}
 //to switch the key for the api so the api will not block us : we have 60 req allowed per min
 var count = 0;
 exports.API = function (cityName, callback) {

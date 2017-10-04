@@ -16,7 +16,9 @@ exports.cities = cities;
 var weatherSchema = new schema ({
     id : Number,
     name: String,
-    weather: Number
+    weather: Number,
+    longitude: Number,
+    latitude: Number
 });
 var weathers = mongoose.model('weathers', weatherSchema);
 exports.weathers = weathers;
@@ -30,7 +32,7 @@ var lastUpdate = parseInt(fs.readFileSync('database/lastUpdate').toString());
 	cities.find().exec(function(err, data){
 		//console.log('data : ', data.length )
 		if (data.length === 0) {
-			console.log("you shouldnt appear")
+			console.log("you shouldnt appear more than once for cities table on the same pc")
 			var objectsCities = helper.fetcher();
 			for (var i = 0; i < objectsCities.length; i++) {
 				obj  = objectsCities[i]
@@ -48,21 +50,24 @@ var updater = function (){
 			//erase previouse content of the table : 
 			weathers.remove({}, (err) => {
 				if (err) {console.log('error erasing')}
-					else {console.log('erased')}
+					else {
+                        console.log('erased')
+                        //change last update
+                        fs.writeFileSync('database/lastUpdate',currentDate);
+                        console.log("you shouldnt appear more than once for weathers table each day - for updating");
+                        //fill weather data
+                        var counter = 0;
+                        for (var i = 0 ; i < data.length ; i++) {
+                            helper.API(data[i].name , function (cityName, temp, long, Lat) {
+                                var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
+                                var tempRank =  rank < 0 ? 0 : rank ;
+                                var obj = {name : cityName , weather : tempRank.toFixed(2), longitude :  long, latitude : Lat} ;
+                                weathers.insertMany([obj]);
+                                console.log('added : ', counter++ , ' to weathers table .');
+                            });
+                        }
+                    }
 				});
-			//change last update
-			fs.writeFileSync('database/lastUpdate',currentDate);
-			console.log("you shouldnt appear");
-			//fill weather data
-			for (var i = 0 ; i < data.length ; i++) {
-				helper.API(data[i].name , function (cityName, temp, long, Lat) {
-					var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
-					var tempRank =  rank < 0 ? 0 : rank ;
-					var obj = {name : cityName , weather : tempRank.toFixed(2), longitude :  long, Latitude : Lat} ;
-					console.log('inside API , adding : ', obj);
-						weathers.insertMany([obj]);
-				});
-			}
 		}
 	})
 }
