@@ -1,7 +1,6 @@
 //main server file
 var express = require('express');
 var bodyParser = require('body-parser');
-var routes = require('./server/routes.js');
 var helpers = require('./server/helpers.js');
 var app = express();
 var cities = require('./database/index.js').cities; 
@@ -43,7 +42,7 @@ app.post('/cities',function(req,res){
 
 
 app.post('/', function (req, res) {
-    routes.findCities(req, res, function (data) {
+    helpers.findCities(req, res, function (data) {
       console.log('inside the call back , data is : ', data)
         res.send(data);
     })
