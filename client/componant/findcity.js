@@ -9,8 +9,11 @@ angular.module('app')
 				data :  city,
 				success : function(data) {
 					currentCity = data;
-					$location.path(view);
+					$location.path('cityinfo');
 					appendMap(); 
+				}, 
+				error : ()=>{
+					console.log('error')
 				}
 			}) 
 		}
