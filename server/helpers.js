@@ -7,16 +7,19 @@ var keys = require('./config.js');
 var cities = require('../database/index.js').cities; 
 var weathers = require('../database/index.js').weathers; 
 
-console.log('cities :' , cities , 'weathers : ', weathers)
+// console.log('cities :' , cities , 'weathers : ', weathers)
 
 
 exports.findDBinfo = function (req, res , callback) {
-  var cityName = req.body;
+  var cityName = req.body.name;
+  // console.log('cityName ; ', cityName)
   findLocation (cityName , function (info) {     //info is obj : longitude , latitude , weatherMark 
+    // console.log('info : ', info)
     cities.find({name : cityName}).exec((err, citiesRow) => {
       if (!err){
-        info.costMark = citiesRow.cost ,
-        info.securityMark = citiesRow.security
+        info.costMark = citiesRow[0].cost ;
+        info.securityMark = citiesRow[0].security  ;
+        // console.log('info1 : ', info)
         callback (info) // add : (costMark , securityMark) to the info object then send it to callback
       }
     })
@@ -27,10 +30,10 @@ function findLocation  (cityName , callback) {
   weathers.find({name : cityName}).exec((err, weathersRow) => {
     if (!err ) {
       var location = {
-        name : weathersRow.name ,
-        longitude : weathersRow.longitude , 
-        latitude : weathersRow.latitude ,
-        weatherMark : weathersRow.weather
+        name : weathersRow[0].name ,
+        longitude : weathersRow[0].longitude , 
+        latitude : weathersRow[0].latitude ,
+        weatherMark : weathersRow[0].weather
       }
       callback(location); 
     }
@@ -40,13 +43,14 @@ function findLocation  (cityName , callback) {
 var hotelImage = [];
 //this function will get array of place_id for hotelsss for the city recieved by the request using it's long & lat..
 var findPlaceId = function(req,res,callback){
-  findLocation (req.body , function (location) { //grt long & lat because the api require them to give hotels IDs in that place 
+  findLocation (req.body.name , function (location) { //grt long & lat because the api require them to give hotels IDs in that place 
     var lat = location.latitude;
     var long = location.longitude;
+    // console.log(lat , long)
     var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
     //var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc"; //not enabled
     var palceId = [];
-    var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=500&type=lodging&keyword=bus&key=" + key
+    var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=10000&type=lodging&key=" + key
     var options = {
       url:url ,
       headers: {
@@ -59,14 +63,14 @@ var findPlaceId = function(req,res,callback){
         console.log('error : ', error.message);
       } else {
         body = JSON.parse(body);
-        console.log(body)
+        // console.log('body : ', body) //empty ???????????????????????????????????????????????
         for (var i = 0; i < body["results"].length; i++) { //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
         }
-        console.log(palceId)
+        // console.log('palceId : ', palceId)
             callback(palceId);
       }
     });
@@ -83,8 +87,8 @@ exports.findHotel = function(req,res,callback){
     //var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc" //not enabled
     var counter = 0 ; // to call the callback after all requests has been recieved ..
 
-    for (var i = 0; i < palces.length; i++) {
-      var url = " https://maps.googleapis.com/maps/api/place/details/json?placeid=" + palces[i] + "&key=AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"  
+    for (var i = 0; i < places.length; i++) {
+      var url = " https://maps.googleapis.com/maps/api/place/details/json?placeid=" + places[i] + "&key=AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"  
       var options = {
         url:url ,
         headers: {
@@ -110,7 +114,7 @@ exports.findHotel = function(req,res,callback){
           //hotel.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + hotelImage[i]+ " = "+ key;  
           hotels.push(hotel);
         }
-        if(counter === palces.length){ // this means it's the last response ..
+        if(counter === places.length){ // this means it's the last response ..
           callback(hotels)
         }
       });
@@ -157,8 +161,9 @@ exports.findDescrption = function(req,res,callback){
 
 // this will get an array of images from flickr api
 exports.findImages = function(req,res,callback){
-  var city = req.body
-  var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6d22fece4c9c47cb53d2ceb9e49da8de&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
+  var city = req.body.name
+  // console.log(city)
+  var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1b1b44477ec0feacb05afc0de17f6e56&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
   var options = {
     url:url ,
     headers: {
@@ -170,14 +175,17 @@ exports.findImages = function(req,res,callback){
     if (error) {
       console.log('error hiba : ', error.message);
     } else {
+      // console.log('body after error hiba : ', body )
       parsed = JSON.parse(body)
       var arrayLinks = [];
-      console.log(parsed)
+      // console.log('parsed : ', parsed)
       arrayOfImages = parsed.photos.photo;
-      for (var i = 0; i < 10; i++) {
-        var link = "http://farm"+arrayOfImages[i]["farm"]+".staticflickr.com/"+arrayOfImages[i]["server"]+"/"+arrayOfImages[i]["id"]+"_"+arrayOfImages[i]["secret"]+".jpg/"
+      var len = arrayOfImages.length >= 10 ? 10 :  arrayOfImages.length 
+      for (var i = 0; i < len; i++) {
+        var link = "http://farm"+ arrayOfImages[i]["farm"] + ".staticflickr.com/"+arrayOfImages[i]["server"]+"/"+arrayOfImages[i]["id"] + "_" + arrayOfImages[i]["secret"] + ".jpg"
         arrayLinks.push(link)
       }
+      // console.log('arrayLinks : ', arrayLinks)
       callback(arrayLinks);
     }
   });
@@ -214,7 +222,7 @@ exports.findCities = function (req, res, CB) {
     
   var criteria = req.body;
   //the criteria is something like : { cost: '0', security: '0', wheater: '0' }
-  console.log('post req : findCities , criteria : ', criteria);
+  // console.log('post req : findCities , criteria : ', criteria);
     
     
   //to get all cities from db => cities table ..
@@ -223,6 +231,7 @@ exports.findCities = function (req, res, CB) {
     weathers.find().exec((err, weathersArr) => {
     if (err) {
       console.log(err);
+      return ;
     }
       //to be able to get the weather of any city by it's name => convert the arr of objects into object ..
         //weathersArr => [] => {name : '', weather: x , longitude : x ,latitude : x }
