@@ -1,8 +1,8 @@
 //this will have to deal with the database 
 const fs = require('fs');
-const path = require('path');
+// const path = require('path');
 var db = require('../database/index.js'); 
-
+console.log(db)
 
 const request = require('request');
 var keys = require('./config.js');
