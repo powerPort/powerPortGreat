@@ -1,14 +1,14 @@
 angular.module('app', [
   'ngRoute'
-]).
-config(['$locationProvider', '$routeProvider', '$sceDelegateProvider', function($locationProvider, $routeProvider , $sceDelegateProvider) {
+])
+.config(['$locationProvider', '$routeProvider', '$sceDelegateProvider', function($locationProvider, $routeProvider , $sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     // Allow same origin resource loads.
     'self',
     // Allow loading from our assets domain.  Notice the difference between * and **.
     'https://maps.google.com/**'
   ]);
-  $locationProvider.hashPrefix('!');
+
   $routeProvider
       .when('/main', {
           templateUrl: 'views/main.html'
