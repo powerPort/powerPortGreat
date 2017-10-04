@@ -6,8 +6,23 @@ angular.module('app')
 	},
 	controller : ($scope, $location)=> {
 	    $scope.changeView = function(view){
-                $location.path(view); // path not hash
-            }
+	    	window.currentCity = this.city ;
+	    	var cityInfo = {
+	    		name : window.currentCity.name ,
+	    		long : window.currentCity.longitude ,
+	    		lat : window.currentCity.latitude 
+	    	}
+	    	$.ajax({ 
+				type : 'POST',
+				url : "http://127.0.0.1:3000/cities" ,
+				data :  cityInfo,
+				success : function(data) {
+					window.currentCity.images = data.images
+					window.currentCity.description = data.description
+	          		$location.path(view); 
+				}
+			})
+        }
 	},
    	templateUrl :`../templates/cities.html`
    })

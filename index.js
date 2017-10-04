@@ -2,7 +2,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var routes = require('./server/routes.js');
+var helpers = require('./server/helpers')
 var app = express();
+
+//for google maps : allow frame to take info from google
+//var xFrameOptions = require('x-frame-options')
+//var middleware = xFrameOptions('https://maps.google.com/')
+
 
 var port = process.env.PORT || 3000 ;
 app.use(bodyParser.json());
@@ -11,14 +17,26 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(__dirname + '/client'));
 app.use(function (req, res, next) {
-   res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+   res.setHeader('X-Frame-Options', 'ALLOW-FROM https://www.google.com/maps?q=41,44&hl=es;z%3D14&amp;output=embed');
+   res.setHeader('Access-Control-Allow-Origin', '*');
    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
    res.setHeader('Access-Control-Allow-Credentials', true);
    next();
 });
 
-
+app.post('/cities',function(req,res){
+  console.log("post req sent")
+  var discAndImg = {};
+  helpers.findDescrption(req,res,function(data){
+      discAndImg.description = data
+      helpers.findImages(req,res,function(data){
+          discAndImg.images = data
+          console.log(discAndImg)
+          res.send(discAndImg)
+      })
+  })
+})
 
 app.get('/', function (req, res) {
     routes.getMainPage(req, res, function (data) {

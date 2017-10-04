@@ -16,18 +16,23 @@ exports.getMainPage = function(req, res, callback) {
 
 
 exports.findCities = function (req, res, CB) {
+    
   var criteria = req.body;
   //the criteria is something like : { cost: '0', security: '0', wheater: '0' }
   console.log('post req : findCities , criteria : ', criteria);
-  //to get results from db ..
+    
+    
+  //to get all cities from db => cities table ..
   cities.find().exec(function(error , citiesArr) {
-    //citiesArr is like = [ {id:  , name: , security: , cost: , weather:  },{},..];
+    //citiesArr is like = [ {id:  , name: , security: , cost: , weather:  },{...},{...},.....];
     weathers.find().exec((err, weathersArr) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     }
-    //console.log('weath arr from find()  : ', weathersArr)
-
+      //to be able to get the weather of any city by it's name => convert the arr of objects into object ..
+        //weathersArr => [] => {name : '', weather: x , longitude : x ,latitude : x }
+        //to be : 
+        //weth => {'cityName' : [ x, y, z] , .... } => each city has [ weather , longitude  ,latitude] in order ...
       var weth = {};
       weathersArr.forEach((item) => {
         weth[item.name] = [
@@ -38,21 +43,25 @@ exports.findCities = function (req, res, CB) {
       })
 
       var results = [];
-    //do something to the citiesArr to count the mark of each city
+    //loop the citiesArr to count the mark of each city .. put all cities and thier marks inside results array by order
     citiesArr.forEach((cityRow) => {
+        
+      //check if the city has a weather mark or not .. if the api of wweather didn't provide info about it , it will be ignored
+        //coz sometimes the weather api have errors .. 
+    if ( weth[cityRow.name] ) {
+    
       //the mark depends on the criteria that the user provided 
-
       var acc = parseInt(cityRow.cost) * criteria.cost +
        parseInt(cityRow.security) * criteria.security +
         weth[cityRow.name][0]; 
-      //results will have cities like this one : 
-      //create obj for each city :
+
+        
+      //create obj for each city (results will have cities like this one) :
       var city = {
         name : cityRow.name ,
         longitude : weth[cityRow.name][1] ,
         latitude :  weth[cityRow.name][2],
         mark : acc , 
-        votes : 0
       }
 
       //give the ele a place in the results arr -they have to be ordered :  
@@ -70,11 +79,11 @@ exports.findCities = function (req, res, CB) {
       if (flag) {
         results.push(city);
       }
+    } // close the if ( weth[cityRow.name] ) ...
 
-      //console.log(city)
-    });
-    console.log(results.slice (0,10))
-
+ });
+    //console.log(results.slice (0,10))
+    //send only top 10 cities
     CB(results.slice(0,10));
     })
   })
