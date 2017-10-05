@@ -27,13 +27,16 @@ app.post('/cities',function(req,res){
   var info = {};
   helpers.findDBinfo(req,res,function(data){ //longitude : 0 , latitude : 0 , weatherMark : 0 , securityMark : 0 , costMark : 0
     info = data ;
+      console.log('fetching description .....')
     helpers.findDescrption(req,res,function(data){  // description : ''
       info.description = data
+        console.log('fetching images .....')
       helpers.findImages(req,res,function(data){ // images : ['', ....]
         info.images = data
+          console.log('fetching hotels .....')
         helpers.findHotel(req,res,function(data){ // hotels: [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
           info.hotels = data;
-          console.log(info)
+          console.log('info about : ', info.name , 'is found .. sending response')
           res.send(info)
         })
       })

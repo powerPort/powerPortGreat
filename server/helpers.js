@@ -13,14 +13,16 @@ var weathers = require('../database/index.js').weathers;
 exports.findDBinfo = function (req, res , callback) {
   var cityName = req.body.name;
   // console.log('cityName ; ', cityName)
-  findLocation (cityName , function (info) {     //info is obj : longitude , latitude , weatherMark 
+  findLocation (cityName , function (info) {  //info is obj: longitude, latitude, weatherMark 
     // console.log('info : ', info)
     cities.find({name : cityName}).exec((err, citiesRow) => {
-      if (!err){
+      if (!err && citiesRow.length !== 0){
         info.costMark = citiesRow[0].cost ;
         info.securityMark = citiesRow[0].security  ;
         // console.log('info1 : ', info)
         callback (info) // add : (costMark , securityMark) to the info object then send it to callback
+      } else {
+          callback(info);
       }
     })
   })
@@ -28,8 +30,7 @@ exports.findDBinfo = function (req, res , callback) {
 
 function findLocation  (cityName , callback) { 
   weathers.find({name : cityName}).exec((err, weathersRow) => {
-    console.log(weathersRow)
-    if (!err ) {
+    if (!err && weathersRow.length !==0) {
       var location = {
         name : weathersRow[0].name ,
         longitude : weathersRow[0].longitude , 
@@ -37,6 +38,8 @@ function findLocation  (cityName , callback) {
         weatherMark : weathersRow[0].weather
       }
       callback(location); 
+    } else {
+        callback({name : cityName})
     }
   })
 }
@@ -44,13 +47,19 @@ function findLocation  (cityName , callback) {
 var hotelImage = [];
 //this function will get array of place_id for hotelsss for the city recieved by the request using it's long & lat..
 var findPlaceId = function(req,res,callback){
-  findLocation (req.body.name , function (location) { //grt long & lat because the api require them to give hotels IDs in that place 
+    console.log('finding long , lat info .....')
+  findLocation (req.body.name , function (location) { //get long & lat because the api require them to give hotels IDs in that place 
+    if (!location.latitude) {
+        //this means we don't have them in our db .. 
+        callback(null);
+        return ; //to stop the function
+    }
     var lat = location.latitude;
     var long = location.longitude;
     // console.log(lat , long)
-    var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
-    //var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc"; //not enabled
-    var palceId = [];
+    //var keys = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
+    var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc"; 
+    
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=10000&type=lodging&key=" + key
     var options = {
       url:url ,
@@ -59,14 +68,22 @@ var findPlaceId = function(req,res,callback){
       },
       method : 'get'
     }
+    console.log('fetching hotels IDs .....');
+      var palceId = [];
     request(url, function (error, response, body) {
-      if (error) {
+      if ( error || JSON.parse(body).results.LENGTH === 0 ) {
         console.log('error : ', error.message);
+        callback(palceId);
+          return;
       } else {
         body = JSON.parse(body);
-        // console.log('body : ', body) //empty ???????????????????????????????????????????????
-        for (var i = 0; i < body["results"].length; i++) { //to keep only the hotels with rating (greater than 4) ;
+          console.log('found : ', body["results"].length , 'hotels');
+        //to get at most 5 hotels ....
+        var allHotels = body["results"].length > 5 ? 5 : body["results"].length
+        for (var i = 0; i < allHotels; i++) { 
+            //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
+            console.log('hotel : ', )
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
@@ -80,16 +97,28 @@ var findPlaceId = function(req,res,callback){
 
 //using array of IDs from the (findPlaceId) function : we use it to get info about each hotel of them ..
 // info to the callback is : [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
+//to loop in the keys and use differnt one each time ..
+var looper = 0;
 exports.findHotel = function(req,res,callback){ 
   findPlaceId(req,res,function(places){
-    
+    if (places.length === 0) {
+        callback([]);
+        return ;
+    }
     var hotels = [];
-    var key = "AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s";
-    //var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc" //not enabled
+      //to make sure the api will not block us :P
+      var keys = ['AIzaSyCp-4DJ5HfC_ioJ3WBLIbtd3b1fPGZt8Nw', 'AIzaSyArug6qDykksdZwC89lcfzOxQEQsq_utIk', 'AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s' ];
+
+      var key = keys[Math.floor(looper/keys.length)];
+    //var key = "AIzaSyAJQ52-j9HQPxnZuen7Ewnj_9sUrJuAzW0"; //i think hiba
+    //var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
+    //var key = "AIzaSyBl1WAIRfUqukeHEL2eY-1FNe5HyD_Mmd0";
+    //var key = "AIzaSyCT6SFgToGY3sL5XlskfjYm-jX10lO9r-g";
+
     var counter = 0 ; // to call the callback after all requests has been recieved ..
 
     for (var i = 0; i < places.length; i++) {
-      var url = " https://maps.googleapis.com/maps/api/place/details/json?placeid=" + places[i] + "&key=AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s"  
+      var url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + places[i] + "&key=" + key  
       var options = {
         url:url ,
         headers: {
@@ -97,8 +126,10 @@ exports.findHotel = function(req,res,callback){
         },
         method : 'get'
       }
+      
       request(url, function (error, response, body) {
         counter++;
+        console.log('fetching hotels data : ', counter , '/', places.length)
         if (error) {
           console.log('error : ', error.message);
         } else {
@@ -116,6 +147,7 @@ exports.findHotel = function(req,res,callback){
           //hotel.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + hotelImage[i]+ " = "+ key;  
           hotels.push(hotel);
         }
+          
         if(counter === places.length){ // this means it's the last response ..
           callback(hotels)
         }
@@ -265,9 +297,7 @@ exports.findCities = function (req, res, CB) {
       //create obj for each city (results will have cities like this one) :
       var city = {
         name : cityRow.name ,
-        longitude : weth[cityRow.name][1] ,
-        latitude :  weth[cityRow.name][2],
-        mark : acc , 
+        mark : acc 
       }
 
       //give the ele a place in the results arr -they have to be ordered :  

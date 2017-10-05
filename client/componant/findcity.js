@@ -8,11 +8,12 @@ angular.module('app')
 				url : 'http://127.0.0.1:3000/cities' ,
 				data :  {name :city},
 				success : function(data) {
-					currentCity = data;
-					$location.path('cityinfo');
-					appendMap(); 
+					window.currentCity = data;
+                    alert('click on info page to view information about : ' + name)
+					//$location.path('cityinfo');
+					//appendMap(); 
 				}, 
-				error : ()=>{
+				error : ()=> {
 					console.log('error')
 				}
 			}) 
