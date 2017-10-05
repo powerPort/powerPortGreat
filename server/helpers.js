@@ -28,6 +28,7 @@ exports.findDBinfo = function (req, res , callback) {
 
 function findLocation  (cityName , callback) { 
   weathers.find({name : cityName}).exec((err, weathersRow) => {
+    console.log(weathersRow)
     if (!err ) {
       var location = {
         name : weathersRow[0].name ,
@@ -81,7 +82,7 @@ var findPlaceId = function(req,res,callback){
 // info to the callback is : [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
 exports.findHotel = function(req,res,callback){ 
   findPlaceId(req,res,function(places){
-    var hotel = {};
+    
     var hotels = [];
     var key = "AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s";
     //var key = "AIzaSyCnJ1hNKvDpcD2mAsa4RA64-iIIBOq9Dgc" //not enabled
@@ -101,6 +102,7 @@ exports.findHotel = function(req,res,callback){
         if (error) {
           console.log('error : ', error.message);
         } else {
+          var hotel = {};
           var reviews = [];
           body = JSON.parse(body);
           var reviewsText = body["result"]["reviews"]
@@ -163,7 +165,7 @@ exports.findDescrption = function(req,res,callback){
 exports.findImages = function(req,res,callback){
   var city = req.body.name
   // console.log(city)
-  var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1b1b44477ec0feacb05afc0de17f6e56&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=10&format=json&nojsoncallback=1"
+  var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1b1b44477ec0feacb05afc0de17f6e56&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=5&format=json&nojsoncallback=1"
   var options = {
     url:url ,
     headers: {
@@ -180,7 +182,7 @@ exports.findImages = function(req,res,callback){
       var arrayLinks = [];
       // console.log('parsed : ', parsed)
       arrayOfImages = parsed.photos.photo;
-      var len = arrayOfImages.length >= 10 ? 10 :  arrayOfImages.length 
+      var len = arrayOfImages.length >= 5 ? 5 :  arrayOfImages.length 
       for (var i = 0; i < len; i++) {
         var link = "http://farm"+ arrayOfImages[i]["farm"] + ".staticflickr.com/"+arrayOfImages[i]["server"]+"/"+arrayOfImages[i]["id"] + "_" + arrayOfImages[i]["secret"] + ".jpg"
         arrayLinks.push(link)
@@ -240,7 +242,7 @@ exports.findCities = function (req, res, CB) {
       var weth = {};
       weathersArr.forEach((item) => {
         weth[item.name] = [
-          parseInt(item.weather) * criteria.weather,
+          parseInt(item.weather) * criteria.wheater,
           parseInt(item.longitude), 
           parseInt(item.latitude)
           ]

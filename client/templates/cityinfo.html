@@ -1,37 +1,37 @@
 <div>
-	<div class="alert alert-success  fa-thumbs-o-up" style="width:30%; background-color:#4DB6AC">
-	    <font color="FFFFFF">name : {{cityinfo.name}}</font><br>
-	    <font color="FFFFFF">securityMark : {{cityinfo.securityMark}}</font><br>
-	    <font color="FFFFFF">costMark : {{cityinfo.costMark}}</font><br>
-	    <font color="FFFFFF">weatherMark : {{cityinfo.weatherMark}}</font><br>
-	    <font color="FFFFFF">longitude : {{cityinfo.longitude}}</font><br>
-	    <font color="FFFFFF">latitude : {{cityinfo.latitude}}</font><br>
-	    <p>description : <br/>
-	    	{{cityinfo.description}}
-	    </p>
-	    <div ng-repeat="image in cityinfo.images track by $index">
-	    <img
-	      width="150px"
-	      ng-src="{{image}}"
-	    />
-	    <hr>
-	    </div>
-    </div>
+    <div style="width: 100%; height:600px; position: relative; bottom:20px; background-color:#193E59 ;">
+        <div id="cityInfo" style="position: relative; left:30px; top:10px;">
+            <font color="FFFFFF">City Name: {{cityinfo.name}}</font><br>
+            <font color="FFFFFF">Security Score: {{cityinfo.securityMark}}</font><br>
+            <font color="FFFFFF">Cost Of Living Score: {{cityinfo.costMark}}</font><br>
+            <font color="FFFFFF">Weather Score : {{cityinfo.weatherMark}}</font><br>
+            <font color="FFFFFF">Longitude : {{cityinfo.longitude}}</font><br>
+            <font color="FFFFFF">Latitude : {{cityinfo.latitude}}</font><br>
+            <font color="FFFFFF">Description : {{cityinfo.description}}</font><br>
+            <p style="color: #FFFFFF ; font-size:12px;">* cities security, cost of living and weather scores are measured relatively</p>
+        </div>
+            <div id="citiesImgs" ng-repeat="image in cityinfo.images track by $index">
+                <img width="150px" ng-src="{{image}}"/>
+            </div>
+   </div>
 
-    <div id='map'></div>
-
-    <br/>
-    <small><a 
+            <div id='map'>
+                    
+            </div>
+<small><a 
     	ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#0000FF;text-align:left" target="_blank">See map bigger</a></small>
-    <p> hotels </p> 
-    <div ng-repeat="hotel in hotels">
-    	<font>hotelName : {{hotel.hotelName}} </font>
-    	<font>rating : {{hotel.rating}} </font>
-    	<font>adress : {{hotel.adress}} </font>
-    	<ul>reviews  : 
-    		<li ng-repeat="review in hotel.reviews"> {{review}} </li>
-    	</ul>
-    	<img src="{{hotel.image}}">
-    	
-    </div>
+    
+   <div id="hotels">
+        <img id= "hotelsBackgroundImage" src="https://static.pexels.com/photos/545034/pexels-photo-545034.jpeg" style="width: 100%; height:700px; position: relative; bottom: 70px;">    
+            <center> hotels </center> 
+                <div ng-repeat="hotel in cityinfo.hotels">
+                    <font>hotelName : {{hotel.hotelName}} </font>
+                    <font>rating : {{hotel.rating}} </font>
+                    <font>adress : {{hotel.address}} </font>
+                    <ul>reviews  : 
+                        <li ng-repeat="review in hotel.reviews"> {{review}} </li>
+                    </ul>
+                    <!-- <img src="{{hotel.image}}"> -->
+                </div>
+   </div>
 </div>

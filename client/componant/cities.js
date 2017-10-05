@@ -5,8 +5,7 @@ angular.module('app')
 		cities : '<'
 	},
 	controller : ($scope, $location)=> {
-
-		$scope.changeView = function(view){
+		$scope.changeView = function(){
 			currentCity = this.city ;
 			var name = this.city.name
 			$.ajax({ 
@@ -15,7 +14,8 @@ angular.module('app')
 				data :  {name: name},
 				success : function(data) {
 					currentCity = data
-					$location.path(view);
+					//alert('click on info page to view information about : ' + name)
+					$location.path('cityinfo'); //redirect works after three clicks - this will make the api block us
 					appendMap(); 
 				}
 			})

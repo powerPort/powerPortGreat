@@ -6,7 +6,7 @@ angular.module('app')
 			$.ajax({ 
 				type : 'POST',
 				url : 'http://127.0.0.1:3000/cities' ,
-				data :  city,
+				data :  {name :city},
 				success : function(data) {
 					currentCity = data;
 					$location.path('cityinfo');

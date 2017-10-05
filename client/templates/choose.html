@@ -1,35 +1,35 @@
-<div ng-controller="formCont" > 
-  <div style=" position: relative; bottom: 400px; margin-left: 150px; background-color:#d9d9d9;border-radius: 25px; opacity: 0.6; width: 300px; right: 800px  height:1000 ">
-    <div class="form-group" style="padding:20px 20px ">
-    <h3 style="display:inline" ><font color="00695C"> cost </font> </h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <select class="form-control" style="display:inline;width:40%;" id="cost">
-         <option ng-repeat="num in generatore"> {{num}}</option>
-         </select>
+<div ng-controller="formCont" >
+ <div style=" position: relative; bottom: 400px; margin-left: 150px; background-color:#d9d9d9 ;border-radius: 25px; opacity: 0.6; width: 300px; right: 800px  height:1000 ">
+   <div class="form-group" style="padding:20px 20px ">
+   <h3 style="display:inline" ><font color="00695C"> cost </font> </h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <select class="form-control" style="display:inline;width:40%;" id="cost">
+        <option ng-repeat="num in generatore"> {{num}}</option>
+        </select>
 
-       <br><br>
+      <br><br>
 
-         <h3 style="display:inline"><font color="00695C"> Security</font> </h3>
-         <select class="form-control" style=" display:inline;width:40%;" id="security">
-         <option ng-repeat="num in generatore">{{num}}</option>
-         </select>
+        <h3 style="display:inline"><font color="00695C"> Security</font> </h3>
+        <select class="form-control" style=" display:inline;width:40%;" id="security">
+        <option ng-repeat="num in generatore">{{num}}</option>
+        </select>
 
-       <br><br>
+      <br><br>
 
-         <h3 style="display:inline"><font color="00695C"> Weather </font></h3>
-         <select  class="form-control" style="display:inline;width:40%;" id="weather"  >
-         <option ng-repeat="num in generatore">{{num}}</option>
-         </select>
+        <h3 style="display:inline"><font color="00695C"> Weather </font></h3>
+        <select  class="form-control" style="display:inline;width:40%;" id="weather"  >
+        <option ng-repeat="num in generatore">{{num}}</option>
+        </select>
 
-           <br><br>&nbsp;&nbsp;&nbsp;&nbsp;
-           <button style = "background-color:#00695C" class="btn btn-primary" ng-click="find()"> find submit </button>
+          <br><br>&nbsp;&nbsp;&nbsp;&nbsp;
+          <button style = "background-color:#00695C " class="btn btn-primary" ng-click="find()"> find submit </button>
 
-  </div>
+ </div>
 
-  </div>
-            <center>
-            <div style="position: relative; opacity: 0.9;bottom: 1050px; left: 600px; width: 700px">
-              <cities cities="cities"></cities>             
-            </div>              
-            </center>
+ </div>
+           <center>
+           <div style="position: relative; opacity: 0.9;bottom: 1050px; left: 600px; width: 700px">
+             <cities cities="cities"></cities>            
+           </div>              
+           </center>
 
 </div>
