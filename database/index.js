@@ -77,7 +77,7 @@ setInterval (updater, 24*60*60*1000);
 
 /**************************************************************************************/
 
-var connectionURL = 'mongodb://localhost/powerPort' ; 
+var connectionURL = 'mongodb://powerPort:1234@ds153413.mlab.com:53413/powerport' ; 
 mongoose.connect(connectionURL,  {
   useMongoClient: true
 });

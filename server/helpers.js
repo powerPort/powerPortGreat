@@ -83,7 +83,7 @@ var findPlaceId = function(req,res,callback){
         for (var i = 0; i < allHotels; i++) { 
             //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
-            console.log('hotel : ', )
+            // console.log('hotel : ', )
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
