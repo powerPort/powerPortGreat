@@ -9,7 +9,7 @@ angular.module('app')
 				data :  {name :city},
 				success : function(data) {
 					window.currentCity = data;
-                    alert('click on info page to view information about : ' + name)
+                    alert('click on info page to view information about : ' + city)
 					//$location.path('cityinfo');
 					//appendMap(); 
 				}, 
