@@ -64,7 +64,7 @@ var updater = function (){
           //loop through all cities in cities table and get thier names then get thier weather by (API) function then insert it to the weathers table 
           for (var i = 0 ; i < data.length ; i++) {
             //for each city : the API will call the callback with :cityName, temp, long, Lat .. in order 
-            helper.API(data[i].name , function (cityName, temp, long, Lat) {
+            helper.API(data[i].name.toLowerCase() , function (cityName, temp, long, Lat) {
               //give a rank for the weather , the mark will be lower if the weather is far up or down from the average of (humans tempreture of comfort) which is 21 :
               //18 at winter .
               //24 at summer .

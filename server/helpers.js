@@ -11,7 +11,7 @@ var weathers = require('../database/index.js').weathers;
 
 
 exports.findDBinfo = function (req, res , callback) {
-  var cityName = req.body.name;
+  var cityName = req.body.name.toLowerCase();
   findLocation (cityName , function (info) {
     //info is obj: longitude, latitude, weatherMark ..
     cities.find({name : cityName}).exec((err, citiesRow) => {
@@ -52,7 +52,7 @@ function findLocation  (cityName , callback) {
 var findPlaceId = function(req,res,callback){
   console.log('finding long , lat info .....');
   //best practice : pass the data to this function from the main server insted of calling findLocation again since data already have location inside it ..
-  findLocation (req.body.name , function (location) {
+  findLocation (req.body.name.toLowerCase() , function (location) {
   //get long & lat because the api require them to give IDs of hotels in that city 
     if (!location.latitude) {
         //this means we don't have them in our db .. 
@@ -194,7 +194,7 @@ exports.fetcher = function () {
 
 //use of wikipedia api to get description about city
 exports.findDescrption = function(req,res,callback){
-  var city = req.body.name;
+  var city = req.body.name.toLowerCase();
   var discrption;
   var url = " https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city +"&limit=100&format=json"  
   var options = {
@@ -219,7 +219,7 @@ exports.findDescrption = function(req,res,callback){
 
 // this will get an array of images from flickr api
 exports.findImages = function(req,res,callback){
-  var city = req.body.name
+  var city = req.body.name.toLowerCase();
   var url =  "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1b1b44477ec0feacb05afc0de17f6e56&tags=tourism%2C"+city+"&tag_mode=all&privacy_filter=1&accuracy=11&safe_search=1&content_type=1&media=photos&per_page=5&format=json&nojsoncallback=1"
   var options = {
     url:url ,
