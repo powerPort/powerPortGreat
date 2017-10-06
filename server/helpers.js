@@ -88,13 +88,12 @@ var findPlaceId = function(req,res,callback){
         for (var i = 0; i < allHotels; i++) { 
             //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
-           // console.log('hotel : ', i )
+            // console.log('hotel : ', i )
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
         }
-        // console.log('palceId : ', palceId)
-            callback(palceId);
+        callback(palceId);
       }
     });
   })
@@ -106,7 +105,7 @@ var findPlaceId = function(req,res,callback){
 var looper = 0;
 exports.findHotel = function(req,res,callback){ 
   findPlaceId(req,res,function(places){
-    if (!places.length) {
+    if (!places) {
         callback([]);
         return ;
     }
