@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 var db = require('../database/index.js'); 
 const request = require('request');
-var keys = require('./config.js');
+var keys = require('./config.js'); //for API function 
 var cities = require('../database/index.js').cities; 
 var weathers = require('../database/index.js').weathers; 
 
@@ -83,7 +83,7 @@ var findPlaceId = function(req,res,callback){
         for (var i = 0; i < allHotels; i++) { 
             //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
-            console.log('hotel : ', )
+           // console.log('hotel : ', i )
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
@@ -107,9 +107,9 @@ exports.findHotel = function(req,res,callback){
     }
     var hotels = [];
       //to make sure the api will not block us :P
-      var keys = ['AIzaSyCp-4DJ5HfC_ioJ3WBLIbtd3b1fPGZt8Nw', 'AIzaSyArug6qDykksdZwC89lcfzOxQEQsq_utIk', 'AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s' ];
+      var localKeys = ['AIzaSyCp-4DJ5HfC_ioJ3WBLIbtd3b1fPGZt8Nw', 'AIzaSyArug6qDykksdZwC89lcfzOxQEQsq_utIk', 'AIzaSyDVsRDaGBfXgT77SXwpYlmpjvNqomCk2s' ];
 
-      var key = keys[Math.floor(looper/keys.length)];
+      var key = localKeys[Math.floor(looper/localKeys.length)];
     //var key = "AIzaSyAJQ52-j9HQPxnZuen7Ewnj_9sUrJuAzW0"; //i think hiba
     //var key = "AIzaSyDVsRDaGBfX3gT77SXwpYlmpjvNqomCk2s";
     //var key = "AIzaSyBl1WAIRfUqukeHEL2eY-1FNe5HyD_Mmd0";
