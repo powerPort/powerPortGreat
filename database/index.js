@@ -53,9 +53,9 @@ var updater = function (){
 			//erase previouse content of the table : 
 			weathers.remove({}, (err) => {
 				if (err) {
-          console.log('error erasing')
+          console.log('error erasing');
         } else {
-          console.log('erased')
+          console.log('erased');
           //change last update to the current day of the week 0-6
           fs.writeFileSync('database/lastUpdate',currentDate);
           //fill weather data .. to make sure all data 91 were filled
