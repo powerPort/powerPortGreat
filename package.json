@@ -21,7 +21,7 @@
     "angular": "^1.6.6",
     "angular-route": "^1.6.6",
     "body-parser": "^1.18.2",
-    "express": "^4.16.0",
+    "express": "^4.16.1",
     "min-angular": "^1.2.0",
     "mongoose": "^4.11.13",
     "request": "^2.83.0",
