@@ -277,6 +277,7 @@ exports.API = function (cityName, callback) {
       temp = body.main.temp;  
       long = body.coord.lon;  
       lat = body.coord.lat; 
+      console.log(cityName , temp, long, lat)
       callback(cityName , temp, long, lat );
     }
   });
