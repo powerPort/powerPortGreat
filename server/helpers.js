@@ -32,18 +32,31 @@ exports.findDBinfo = function (req, res , callback) {
 //get data from weathers table : longitude, latitude, weatherMark  ..
 function findLocation  (cityName , callback) { 
   weathers.find({name : cityName}).exec((err, weathersRow) => {
-    //if we recieved empty array we will send only the name (else)
-    if (!err && weathersRow.length !== 0) {
-      var location = {
-        name : weathersRow[0].name ,
-        longitude : weathersRow[0].longitude , 
-        latitude : weathersRow[0].latitude ,
-        weatherMark : weathersRow[0].weather
-      }
+    var location = {
+      name : cityName
+    };
+    if (!err && weathersRow) {
+      location.longitude = weathersRow[0].longitude ,;
+      location.latitude = weathersRow[0].latitude ;
+      location.weatherMark = weathersRow[0].weather ;
       callback(location); 
+      return ;
     } else {
-        callback({name : cityName})
-    }
+      //even if we don't have the city in out db tables we will get info for it from the api
+      exports.API(cityName , function(cityName , temp, long, lat ){
+        if (cityName) {
+          location.longitude = long ;
+          location.latitude = lat ;
+          //calculate the rank depending on the tempreature
+          var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
+          var tempRank =  rank < 0 ? 0 : rank ;
+          location.weather =  tempRank;
+        } else {
+          //if we recieved empty array we will send only the name (else)
+          callback({name : cityName})
+        }
+      })
+    } 
   })
 }
 

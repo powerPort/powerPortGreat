@@ -22,11 +22,11 @@ for the front end we used angularJS and Jquery for back end we used Nodejs(expre
 
 ## Files
 
-[] client side 
+[ ] client side 
 
-	- [] component 
+	- [ ] component 
 
-	- [] templates 
+	- [ ] templates 
 
 		- for angular templates 
 
@@ -34,7 +34,7 @@ for the front end we used angularJS and Jquery for back end we used Nodejs(expre
 
 	- index.js
 
-[] database:
+[ ] database:
 
 	- index.js: creates schema and fills database with info
 
@@ -42,7 +42,7 @@ for the front end we used angularJS and Jquery for back end we used Nodejs(expre
 
 	- lastupdate: saves the number that represents the current date
 
-[] server:
+[ ] server:
 
 	- config.js: keys for API's
 
