@@ -43,8 +43,8 @@ function findLocation  (cityName , callback) {
       return ;
     } else {
       //even if we don't have the city in out db tables we will get info for it from the api
-      exports.API(cityName , function(cityName , temp, long, lat ){
-        if (cityName) {
+      exports.API(cityName , function(name , temp, long, lat ){
+        if (name) {
           location.longitude = long ;
           location.latitude = lat ;
           //calculate the rank depending on the tempreature
