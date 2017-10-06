@@ -35,7 +35,7 @@ function findLocation  (cityName , callback) {
     var location = {
       name : cityName
     };
-    if (!err && weathersRow) {
+    if (!err && weathersRow.length !== 0) {
       location.longitude = weathersRow[0].longitude ;
       location.latitude = weathersRow[0].latitude ;
       location.weatherMark = weathersRow[0].weather ;
