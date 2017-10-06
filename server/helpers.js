@@ -51,6 +51,7 @@ function findLocation  (cityName , callback) {
           var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
           var tempRank =  rank < 0 ? 0 : rank ;
           location.weather =  tempRank;
+          callback(location); 
         } else {
           //if we recieved empty array we will send only the name (else)
           callback({name : cityName})
@@ -283,7 +284,7 @@ exports.API = function (cityName, callback) {
     body = JSON.parse(body);
     //if the api blocked the request key we invoke the callback with undefined data to prevent inserting it to our table so it will not affect the (findCities) function ...
     if (error || !body.main || !body.coord) {
-      console.log('error while updating weathers table : ', cityName);
+      console.log('error while updating weathers info : ', cityName);
       callback();
       return ;
     } else {
