@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+//'Access-Control-Allow-Origin', '*' => to allow all cross origin requests 
+//by the way : localhost and 127.0.0.1 are dufferent (considered as cross origin so do the requests from heroku to localhost)
 app.use(express.static(__dirname + '/client'));
 app.use(function (req, res, next) {
    res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,17 +26,22 @@ app.use(function (req, res, next) {
 
 //callback hell :)
 app.post('/cities',function(req,res){
+  //req.body : {name : 'cityName'}
   var info = {};
-  helpers.findDBinfo(req,res,function(data){ //longitude : 0 , latitude : 0 , weatherMark : 0 , securityMark : 0 , costMark : 0
+  //longitude : 0 , latitude : 0 , weatherMark : 0 , securityMark : 0 , costMark : 0
+  helpers.findDBinfo(req,res,function(data){ 
     info = data ;
-      console.log('fetching description .....')
-    helpers.findDescrption(req,res,function(data){  // description : ''
+    console.log('fetching description .....')
+    // description : ''
+    helpers.findDescrption(req,res,function(data){ 
       info.description = data
-        console.log('fetching images .....')
-      helpers.findImages(req,res,function(data){ // images : ['', ....]
+      console.log('fetching images .....');
+      // images : ['', ....]
+      helpers.findImages(req,res,function(data){ 
         info.images = data
-          console.log('fetching hotels .....')
-        helpers.findHotel(req,res,function(data){ // hotels: [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
+        console.log('fetching hotels .....');
+        // hotels: [{ hotelName: '' ,rating: 0 , adress: '' ,reviews: ['', ...] } , .....]
+        helpers.findHotel(req,res,function(data){ 
           info.hotels = data;
           console.log('info about : ', info.name , 'is found .. sending response')
           res.send(info)
@@ -47,7 +54,7 @@ app.post('/cities',function(req,res){
 
 app.post('/', function (req, res) {
     helpers.findCities(req, res, function (data) {
-      console.log('inside the call back , data is : ', data)
+      console.log('inside the call back , data is : ', data);
         res.send(data);
     })
 })
