@@ -16,13 +16,13 @@
         <div id='map'>  </div>
         <small>
           <a
-             ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#0000FF;text-align:left" target="_blank">See map bigger
+             ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#b9e8da;text-align:left" target="_blank">See map bigger
           </a>
         </small>
       </div>
       <table style="position: relative; left: 20px; top:40px; " >
           <tr>
-          <td id="citiesImgs" ng-repeat="image in cityinfo.images track by $index">
+          <td id="citiesImgs" style="margin : 5px;" ng-repeat="image in cityinfo.images track by $index">
               <img  width="250px" height="200px"  border="5px solid" ng-src="{{image}}"/>
           </td>
        </tr>          
