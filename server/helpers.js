@@ -50,7 +50,7 @@ function findLocation  (cityName , callback) {
           //calculate the rank depending on the tempreature
           var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
           var tempRank =  rank < 0 ? 0 : rank ;
-          location.weather =  tempRank;
+          location.weatherMark =  tempRank;
           callback(location); 
         } else {
           //if we recieved empty array we will send only the name (else)
