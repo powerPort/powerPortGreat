@@ -22,8 +22,8 @@
       </div>
       <table style="position: relative; left: 20px; top:40px; " >
           <tr>
-          <td id="citiesImgs" style="margin : 5px;" ng-repeat="image in cityinfo.images track by $index">
-              <img  width="250px" height="200px"  border="5px solid" ng-src="{{image}}"/>
+          <td id="citiesImgs"  ng-repeat="image in cityinfo.images track by $index">
+              <img  width="250px" height="200px" style="margin : 10px;" border="2px double white" ng-src="{{image}}"/>
           </td>
        </tr>          
       </table>
@@ -34,7 +34,7 @@
      
  <div id="hotels" >
       <!-- <img id= "hotelsBackgroundImage" src="https://static.pexels.com/photos/545034/pexels-photo-545034.jpeg" style="width: 100%; height:1000px; position: relative; bottom: 120px;"> -->
-      <div id="hotelsInfo" style="position: relative;bottom: 780 ; text-align: center;">    
+      <div id="hotelsInfo" style="text-align: top;">    
 <!--          <center style=" position: relative; bottom: 600px;"> </center>-->
          
               <div ng-repeat="hotel in cityinfo.hotels" style="display:inline-block; color:white;" >
