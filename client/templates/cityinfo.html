@@ -1,6 +1,6 @@
 <div>
-  <div style="width: 100%; height:600px; position: relative; bottom:20px; background-color:#193E59;padding : 15px; ">
-      <div id="cityInfo" style="position: relative; left:30px; top:10px;">
+  <div style=" height:600px;  bottom:20px; background-color:#193E59;padding : 15px; "> 
+      <div id="cityInfo" style="width: 60%;">
           <br><br>
           <font color="FFFFFF">City Name: {{cityinfo.name}}</font><br><br>
           <font color="FFFFFF" ng-show="cityinfo.securityMark">Security Score: {{cityinfo.securityMark}}</font><br><br>
@@ -9,8 +9,7 @@
           <font color="FFFFFF">Longitude : {{cityinfo.longitude}}</font><br><br>
           <font color="FFFFFF">Latitude : {{cityinfo.latitude}}</font><br><br>
           <font color="FFFFFF">Description : {{cityinfo.description}}</font><br><br>
-          <p style="color: #FFFFFF
-; font-size:12px;">* cities security, cost of living and weather scores are measured relatively</p>
+          <p style="color: #FFFFFF; font-size:12px;">* cities security, cost of living and weather scores are measured relatively</p>
       </div>
       <table style="position: relative; left: 20px; top:40px; " >
           <tr>
@@ -22,7 +21,7 @@
 
  </div>
 
-         <div id="completeMap" style="position: relative; left:1000px; bottom:600px;">
+         <div id="completeMap" style="width : 30% ;float:right">
              <h4 onClick="appendMap()" style="color:gray">click to find at google maps</h4>
               <div id='map'>  </div>
                <small><a
