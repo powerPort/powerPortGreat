@@ -98,15 +98,15 @@ var findPlaceId = function(req,res,callback){
         body = JSON.parse(body);
           console.log('found : ', body["results"].length , 'hotels');
         //to get at most 5 hotels ....
-        var allHotels = body["results"].length > 5 ? 5 : body["results"].length
-        for (var i = 0; i < allHotels; i++) { 
+        for (var i = 0; i < body["results"].length; i++) { 
             //to keep only the hotels with rating (greater than 4) ;
           if (body["results"][i].rating > 3.9) {
-            // console.log('hotel : ', i )
             palceId.push(body["results"][i].place_id)
             //hotelImage.push(body[i].results.photos.photo_reference)
           }
         }
+        palceId = palceId.length > 5 ? palceId.slice(0,5) : palceId ;
+        console.log('kept : ' , palceId.length , ' hotels')
         callback(palceId);
       }
     });

@@ -6,11 +6,12 @@ angular.module('app')
 	},
 	controller : ($scope, $location)=> {
 		//http://localhost:3000/cities
+		//https://safe-lowlands-94171.herokuapp.com/cities
 		$scope.changeView = function(){
 			var name = this.city.name
 			$.ajax({ 
 				type : 'POST',
-				url : "https://safe-lowlands-94171.herokuapp.com/cities" ,
+				url : "http://localhost:3000/cities" ,
 				data :  {name: name},
 				success : function(data) {
                     console.log(data);

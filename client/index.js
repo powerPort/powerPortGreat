@@ -30,9 +30,10 @@ angular.module('app', [
 		var cost = document.getElementById('cost').value;
 		var weather = document.getElementById('weather').value;
     //http://localhost:3000/
+    //https://safe-lowlands-94171.herokuapp.com/
 		$.ajax({ 
 			type : 'POST',
-			url : "https://safe-lowlands-94171.herokuapp.com/" ,
+			url : "http://localhost:3000/" ,
 			data : {cost : cost, security : security, weather : weather} ,
 			success : function(data) {
 	  			window.cities = data;

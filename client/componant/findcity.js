@@ -2,11 +2,12 @@ angular.module('app')
    .component('findcity' , {
 	controller : ($scope, $location) => {
 		//http://localhost:3000/cities
+		//https://safe-lowlands-94171.herokuapp.com/cities
 		$scope.find = () => {
 			var city = $('#cityname').val()
 			$.ajax({ 
 				type : 'POST',
-				url : 'https://safe-lowlands-94171.herokuapp.com/cities' ,
+				url : 'http://localhost:3000/cities' ,
 				data :  {name :city},
 				success : function(data) {
 					window.currentCity = data;

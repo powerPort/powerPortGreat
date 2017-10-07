@@ -1,6 +1,6 @@
 <div>
-  <div style=" height:615px; padding : 15px; width: 100%"> 
-      <div id="cityInfo" style="width: 60%;">
+  <div style=" height:615px; padding : 15px; width: 100% border: "> 
+      <div id="cityInfo" style="width: 60%;display: inline-block;">
           <br><br>
           <font color="FFFFFF">City Name: {{cityinfo.name}}</font><br><br>
           <font color="FFFFFF" ng-show="cityinfo.securityMark">Security Score: {{cityinfo.securityMark}}</font><br><br>
@@ -11,7 +11,7 @@
           <font color="FFFFFF">Description : {{cityinfo.description}}</font><br><br>
           <p style="color: #FFFFFF; font-size:12px;">* cities security, cost of living and weather scores are measured relatively</p>
       </div>
-       <div id="completeMap" style="width : 30% ;float:right">
+       <div id="completeMap" style="width : 25% ; display: inline-block; ;float:right">
         <h4 onClick="appendMap()" style="color:gray">click to find at google maps</h4>
         <div id='map'>  </div>
         <small>
