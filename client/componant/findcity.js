@@ -7,7 +7,7 @@ angular.module('app')
 			var city = $('#cityname').val()
 			$.ajax({ 
 				type : 'POST',
-				url : 'http://localhost:3000/cities' ,
+				url : 'https://safe-lowlands-94171.herokuapp.com/cities' ,
 				data :  {name :city},
 				success : function(data) {
 					window.currentCity = data;

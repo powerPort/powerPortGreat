@@ -11,7 +11,7 @@ angular.module('app')
 			var name = this.city.name
 			$.ajax({ 
 				type : 'POST',
-				url : "http://localhost:3000/cities" ,
+				url : "https://safe-lowlands-94171.herokuapp.com/cities" ,
 				data :  {name: name},
 				success : function(data) {
                     console.log(data);

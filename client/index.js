@@ -33,7 +33,7 @@ angular.module('app', [
     //https://safe-lowlands-94171.herokuapp.com/
 		$.ajax({ 
 			type : 'POST',
-			url : "http://localhost:3000/" ,
+			url : "https://safe-lowlands-94171.herokuapp.com/" ,
 			data : {cost : cost, security : security, weather : weather} ,
 			success : function(data) {
 	  			window.cities = data;
