@@ -1,5 +1,5 @@
 <div>
-  <div style=" height:600px;  bottom:20px; background-color:#193E59;padding : 15px; "> 
+  <div style=" height:615px; padding : 15px; width: 100%"> 
       <div id="cityInfo" style="width: 60%;">
           <br><br>
           <font color="FFFFFF">City Name: {{cityinfo.name}}</font><br><br>
@@ -11,6 +11,15 @@
           <font color="FFFFFF">Description : {{cityinfo.description}}</font><br><br>
           <p style="color: #FFFFFF; font-size:12px;">* cities security, cost of living and weather scores are measured relatively</p>
       </div>
+       <div id="completeMap" style="width : 30% ;float:right">
+        <h4 onClick="appendMap()" style="color:gray">click to find at google maps</h4>
+        <div id='map'>  </div>
+        <small>
+          <a
+             ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#0000FF;text-align:left" target="_blank">See map bigger
+          </a>
+        </small>
+      </div>
       <table style="position: relative; left: 20px; top:40px; " >
           <tr>
           <td id="citiesImgs" ng-repeat="image in cityinfo.images track by $index">
@@ -21,13 +30,7 @@
 
  </div>
 
-         <div id="completeMap" style="width : 30% ;float:right">
-             <h4 onClick="appendMap()" style="color:gray">click to find at google maps</h4>
-              <div id='map'>  </div>
-               <small><a
-               ng-href='https://maps.google.com/maps?q={{cityinfo.latitude}},{{cityinfo.longitude}}&hl=es;z=14&amp;output=embed' style="color:#0000FF
-;text-align:left" target="_blank">See map bigger</a></small>
-              </div>
+
      
  <div id="hotels" >
       <!-- <img id= "hotelsBackgroundImage" src="https://static.pexels.com/photos/545034/pexels-photo-545034.jpeg" style="width: 100%; height:1000px; position: relative; bottom: 120px;"> -->

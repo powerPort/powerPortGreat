@@ -74,9 +74,9 @@ var updater = function (){
               }
               var rank = 100 - Math.abs(((( temp ) - 294) / (2.73/2)));
               var tempRank =  rank < 0 ? 0 : rank ;
-              var obj = {name : cityName , weather : tempRank.toFixed(2), longitude :  long, latitude : Lat} ;
+              var obj = {name : cityName.toLowerCase() , weather : tempRank.toFixed(2), longitude :  long, latitude : Lat} ;
               weathers.insertMany([obj]);
-              console.log('added : ', counter++ , ' to weathers table .');
+              console.log('added : ', counter++ , ' to weathers table : ', cityName.toLowerCase());
             });
           }
         }
@@ -89,7 +89,7 @@ setInterval (updater, 24*60*60*1000);
 
 
 /*************************************************************************/
-//mongodb://<dbuser>:<dbpassword>@ds013475.mlab.com:13475/powerport
+//mongodb://powerport:powerport@ds013475.mlab.com:13475/powerport
 //mongodb://localhost/powerPort
 var connectionURL = 'mongodb://powerport:powerport@ds013475.mlab.com:13475/powerport' ; 
 mongoose.connect(connectionURL,  {

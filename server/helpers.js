@@ -197,7 +197,7 @@ exports.fetcher = function () {
     var lineArr = ele.split(' ');
     //after splitting : ['cityName' , '5' , '6']
     var obj = {};
-    obj["name"] = lineArr[0]
+    obj["name"] = lineArr[0].toLowerCase();
     obj["security"] = lineArr[1]
     obj["cost"] = lineArr[2]
     array.push(obj) //{name: '', security: 0 , cost: 0}
@@ -291,6 +291,7 @@ exports.API = function (cityName, callback) {
       temp = body.main.temp;  
       long = body.coord.lon;  
       lat = body.coord.lat; 
+      console.log('to callback from API : ', cityName , temp, long, lat)
       callback(cityName , temp, long, lat );
     }
   });
@@ -300,15 +301,21 @@ exports.API = function (cityName, callback) {
 exports.findCities = function (req, res, CB) {
   
   var criteria = req.body;
+
   //the criteria is something like : { cost: '0', security: '0', wheater: '0' }
     
   //to get all cities from db => cities table ..
   cities.find().exec(function(error , citiesArr) {
     //citiesArr is like = [ {id: 0 , name: '' , security: 0, cost: 0 }, {...}, {...}, .....];
+    if (error) {
+      console.log('error getting cities array');
+      CB([])
+      return ;
+    }
     weathers.find().exec((err, weathersArr) => {
       //weathersArr is like = [{id : 0 , name : '' , weather : 0}, {} , ... ]
     if (err) {
-      console.log(err);
+      console.log('error getting weathers array');
       CB([])
       return ;
     }
@@ -318,13 +325,12 @@ exports.findCities = function (req, res, CB) {
       //weth => {'cityName' : x  , .... } => each city has weather ...
     var weth = {};
     weathersArr.forEach((item) => {
-      weth[item.name] = parseInt(item.weather) * criteria.wheater ;
+      weth[item.name] = parseInt(item.weather) * criteria.weather ;
     })
 
     var results = [];
     //loop the citiesArr to count the mark of each city .. put all cities and thier marks inside results array by order
     citiesArr.forEach((cityRow) => {
-        
       //check if the city has a weather mark or not .. if the api of weather didn't provide info about it , it will be ignored
         //coz sometimes the weather api have errors .. 
     if ( weth[cityRow.name] ) {
@@ -334,12 +340,13 @@ exports.findCities = function (req, res, CB) {
        parseInt(cityRow.security) * criteria.security +
         weth[cityRow.name]; 
 
-        
+      console.log(acc , cityRow.name)
       //create obj for each city (results will have cities like this one) :
       var city = {
-        name : cityRow.name 
+        name : cityRow.name ,
+        mark : acc
       }
-
+      console.log(city)
       //give the ele a place in the results arr -they have to be ordered :  
       var flag =  true ; //the city wasn't added ..
 

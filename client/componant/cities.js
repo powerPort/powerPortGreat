@@ -5,6 +5,7 @@ angular.module('app')
 		cities : '<'
 	},
 	controller : ($scope, $location)=> {
+		//http://localhost:3000/cities
 		$scope.changeView = function(){
 			var name = this.city.name
 			$.ajax({ 

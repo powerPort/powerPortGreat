@@ -28,12 +28,12 @@ angular.module('app', [
 	 	// get value from user  
 		var security = document.getElementById('security').value;
 		var cost = document.getElementById('cost').value;
-		var wheater = document.getElementById('weather').value;
-
+		var weather = document.getElementById('weather').value;
+    //http://localhost:3000/
 		$.ajax({ 
 			type : 'POST',
 			url : "https://safe-lowlands-94171.herokuapp.com/" ,
-			data : {cost : cost, security : security, wheater : wheater} ,
+			data : {cost : cost, security : security, weather : weather} ,
 			success : function(data) {
 	  			window.cities = data;
 			}
